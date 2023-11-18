@@ -1,28 +1,29 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CsrfContext } from "../../context/CsrfContext";
 
 import * as turf from '@turf/turf';
+import axios from "axios";
 
+function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
+  const [startLocation, setStartLocation] = useState('');
+  const [totalDistance, setTotalDistance] = useState(0);
 
-function RouteStartForm({ setWaypointCoordinates, setOriginCoordinates }){
-  const [startLocation, setStartLocation] = useState('')
-  const [totalDistance, setTotalDistance] = useState(0)
-
-  const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+  const csrfToken = useContext(CsrfContext);
 
   const geocodeStartLocation = (address) => {
-      const geocoder = new window.google.maps.Geocoder();
-      return new Promise((resolve, reject) => {
-        geocoder.geocode({ address }, (results, status) => {
-          if (status === 'OK') {
-            const coords = results[0].geometry.location;
-            resolve(coords);
-          } else {
-            reject(status);
-          }
-        });
+    const geocoder = new window.google.maps.Geocoder();
+    return new Promise((resolve, reject) => {
+      geocoder.geocode({ address }, (results, status) => {
+        if (status === 'OK') {
+          const coords = results[0].geometry.location;
+          resolve(coords);
+        } else {
+          reject(status);
+        }
       });
-  }
+    });
+  };
+
 
   const calculateLocationLatLng = (startLocation, distance) => {
     // Create a Turf.js point from the start location
@@ -46,9 +47,8 @@ function RouteStartForm({ setWaypointCoordinates, setOriginCoordinates }){
     return { lat: newLat, lng: newLng };
   };
 
-  const handleSubmit = async (event) => { 
-    event.preventDefault();
-    event.persist();
+
+  const handleSubmit = async () => { 
 
     const startLocationCoords = await geocodeStartLocation(startLocation);
 
@@ -79,11 +79,11 @@ function RouteStartForm({ setWaypointCoordinates, setOriginCoordinates }){
     } catch (error) {
       console.error('Error making the POST request:', error);
     }
+  };
 
-  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <>
       <label>Starting location</label>
       <input
         type="text"
@@ -104,8 +104,8 @@ function RouteStartForm({ setWaypointCoordinates, setOriginCoordinates }){
         onChange={(e) => setTotalDistance(e.target.value)}
         required
       />
-      <button type="submit">Sumbit</button>
-    </form>
+      <button type="submit" onClick={handleSubmit}>Sumbit</button>
+    </>
   )
 }
 

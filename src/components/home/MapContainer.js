@@ -7,16 +7,16 @@ import MapContent from "./MapContent"
 
 
 function MapContainer(){
-    const [originCoordinates, setOriginCoordinates] = useState()
-    const [waypointCoordinates, setWaypointCoordinates] = useState()
+  const [originCoordinates, setOriginCoordinates] = useState()
+  const [waypointCoordinates, setWaypointCoordinates] = useState()
 
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY
-    })
+  const { isLoaded } = useLoadScript({
+      googleMapsApiKey: process.env.REACT_APP_MAPS_API_KEY
+  })
 
   return (
     <>
-    <RouteStartForm setWaypointCoordinates={setWaypointCoordinates} setOriginCoordinates={setOriginCoordinates} isLoaded={isLoaded} />
+    <RouteStartForm setOriginCoordinates={setOriginCoordinates} setWaypointCoordinates={setWaypointCoordinates} />
     {!waypointCoordinates && <p>Please privide starting location...</p>}
     {waypointCoordinates && <MapContent waypointCoordinates={waypointCoordinates} originCoordinates={originCoordinates} isLoaded={isLoaded} />}
     </>
