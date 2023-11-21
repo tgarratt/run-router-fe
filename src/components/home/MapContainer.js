@@ -15,11 +15,10 @@ function MapContainer(){
   })
 
   return (
-    <>
-    <RouteStartForm setOriginCoordinates={setOriginCoordinates} setWaypointCoordinates={setWaypointCoordinates} />
-    {!waypointCoordinates && <p>Please privide starting location...</p>}
-    {waypointCoordinates && <MapContent waypointCoordinates={waypointCoordinates} originCoordinates={originCoordinates} isLoaded={isLoaded} />}
-    </>
+    <div className="w-4/5 flex flex-col items-center">
+      <RouteStartForm setOriginCoordinates={setOriginCoordinates} setWaypointCoordinates={setWaypointCoordinates} />
+      <MapContent waypointCoordinates={waypointCoordinates} originCoordinates={originCoordinates} isLoaded={isLoaded} />
+    </div>
   )
 }
 

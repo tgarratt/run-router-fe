@@ -2,12 +2,13 @@ import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-import './App.css';
+import './styles/App.css';
 
-import MapContainer from './components/home/MapContainer';
 import Nav from "./components/global/Nav";
 import { CsrfContext } from "./context/CsrfContext";
 import { AccountContext } from "./context/AccountContext";
+import Links from "./Links";
+import runRouterBg from "./media/runRouterBg.png";
 
 function App() {
   
@@ -28,10 +29,10 @@ function App() {
     <AccountContext.Provider value={query}>
       <CsrfContext.Provider value={csrfToken}>
         {query.isSuccess &&
-          <>
+          <div style={{backgroundImage: `url(${runRouterBg})`}}>
             <Nav />
-            <MapContainer />
-          </>    
+            <Links />
+          </div>
         }
       </CsrfContext.Provider>
     </AccountContext.Provider>

@@ -4,9 +4,19 @@ import { CsrfContext } from "../../context/CsrfContext";
 import * as turf from '@turf/turf';
 import axios from "axios";
 
+import RunRight from "../../media/RunRight";
+import FormValid from "../../media/FormValid.js";
+import FormInvalid from "../../media/FormInvalid";
+import Search from "../../media/Search";
+import TopRightArrow from "../../media/TopRightArrow";
+
+
 function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
   const [startLocation, setStartLocation] = useState('');
   const [totalDistance, setTotalDistance] = useState(0);
+
+  const [startLocationError, setStartLocationError] = useState(null);
+  const [totalDistanceError, setTotalDistanceError] = useState(null);
 
   const csrfToken = useContext(CsrfContext);
 
@@ -50,6 +60,20 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
 
   const handleSubmit = async () => { 
 
+    if(!startLocation && !totalDistance){
+      setStartLocationError(true);
+      setTotalDistanceError(true);
+      return
+    }
+    if(!startLocation){
+      setStartLocationError(true);
+      return
+    }
+    if(!totalDistance){
+      setTotalDistanceError(true);
+      return
+    }
+
     const startLocationCoords = await geocodeStartLocation(startLocation);
 
     const totalDistanceMeters = totalDistance * 1000
@@ -83,29 +107,76 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
 
 
   return (
-    <>
-      <label>Starting location</label>
-      <input
-        type="text"
-        id="startLocation"
-        name="startLocation"
-        value={startLocation}
-        onChange={(e) => setStartLocation(e.target.value)}
-        required
-      />
-      <label>Total Distance</label>
-      <input
-        type="number"
-        id="totalDistance"
-        name="totalDistance"
-        min="1"
-        max="30"
-        value={totalDistance}
-        onChange={(e) => setTotalDistance(e.target.value)}
-        required
-      />
-      <button type="submit" onClick={handleSubmit}>Sumbit</button>
-    </>
+    <div className="bg-white w-11/12 rounded-t-2xl">
+      <div className="grid grid-cols-8 grid-rows-3 mt-4 mx-16">
+          <label className="row-start-1 row-end-1 col-span-3 flex items-center font-medium">Starting Location</label>
+          <div className="row-start-2 row-end-2 col-span-3 flex items-center">
+            <div className="flex w-2/3">
+              <input
+                type="text"
+                id="startLocation"
+                name="startLocation"
+                value={startLocation}
+                onChange={(e) => {
+                  setStartLocation(e.target.value);
+                  if(e.target.value) {
+                    setStartLocationError(false);
+                  }else{
+                    setStartLocationError(true);
+                  }
+                }}
+                placeholder="Address"
+                required
+                className="bg-slate-200 rounded-l-md p-2"
+              />
+              <div className="bg-slate-200 rounded-r-md p-2 mr-2 flex items-center">
+                <Search />
+              </div>
+            </div>
+            {startLocationError === false && <FormValid />}
+            {startLocationError && <FormInvalid />}
+          </div>
+          {startLocationError && <div className="row-start-3 row-end-3 col-start-1 col-span-3 text-[#EE5757] mt-2">Field Required!</div>}
+          <label className="row-start-1 row-end-1 col-span-2 flex items-center font-medium">Distance</label>
+          <div className="flex row-start-2 row-end-2 col-span-2 items-center">
+            <input
+              type="number"
+              id="totalDistance"
+              name="totalDistance"
+              min="1"
+              max="30"
+              value={totalDistance}
+              onChange={(e) => {
+                setTotalDistance(e.target.value)
+                if(e.target.value) {
+                  setTotalDistanceError(false);
+                } else {
+                  setTotalDistanceError(true);
+                }
+              }}
+              required
+              className="bg-slate-200 rounded-l-md p-2 w-1/2"
+            />
+            <div className="bg-slate-200 rounded-r-md p-2 mr-2">
+              <p className="font-bold">km</p>
+            </div>
+            {totalDistanceError === false && <FormValid />}
+            {totalDistanceError && <FormInvalid />}
+        </div>
+        {totalDistanceError && <p className="row-start-3 row-end-3 col-span-2 col-start-4 text-[#EE5757] mt-2">Field Required!</p>}
+        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 mx-4 flex items-center justify-center">
+          <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 relative font-medium text-lg max-w-[18rem]">
+            <div className="absolute left-4" >
+              <RunRight />
+            </div>
+            <p>Generate Route</p>
+          </div>
+          <div className="bg-slate-200 rounded-md h-full ml-1">
+            <TopRightArrow />
+          </div>
+        </button>
+      </div>
+    </div>
   )
 }
 

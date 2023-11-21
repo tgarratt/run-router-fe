@@ -4,6 +4,9 @@ import { useMutation } from "react-query";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
+import Account from "../../media/Account";
+import HamburgerMenu from "../../media/HamburgerMenu";
+import LogoWhite from "../../media/LogoWhite";
 
 function Nav(){
   const [username, setUsername] = useState('')
@@ -69,8 +72,23 @@ function Nav(){
   }
 
   return (
-    <div style={{marginBottom: '30px', display: 'flex'}}>
-    {accountQuery.data?.authenticated ? 
+    <div className="flex">
+      <div className="m-8">
+        <LogoWhite />
+      </div>
+      <div className="bg-white rounded-b-md flex h-fit items-center ml-auto mr-16 py-2">
+        {accountQuery.data?.authenticated &&
+          <div className="flex items-center mx-2">
+            <Account />
+            <p onClick={logOut} className="text-sm mx-2 cursor-pointer">Log Out</p>
+          </div>
+        }
+        <div className="flex items-center mx-2">
+          <HamburgerMenu />
+          <p className="text-sm mx-2">Menu</p>
+        </div>
+      </div>
+    {/* {accountQuery.data?.authenticated ? 
       <>
         <p onClick={logOut}>Log Out</p>
       </>
@@ -103,7 +121,7 @@ function Nav(){
         </div>
       </div>
       
-    }
+    } */}
     </div>
   )
 }

@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react"
 import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
 
 
-
 function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
     const [directions, setDirections] = useState(null);
 
     const containerStyle = {
-      width: '800px',
-      height: '500px'
+      borderTopLeftRadius: '16px',
+      borderTopRightRadius: '16px',
+      width: '100%',
+      height: '700px',
+      padding: '10px'
     };
-
-    const isWithinTolerance = (desiredRouteLength, truedRouteLength) => {
-      return Math.abs(desiredRouteLength - truedRouteLength) <= 0.3;
-    }
 
     useEffect(() => {
       if (isLoaded && waypointCoordinates) {
@@ -43,26 +41,36 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
       }
     }, [waypointCoordinates, isLoaded, originCoordinates])
 
-    return isLoaded && directions ? (
+    const defaultCenter = {
+      lat: 53.746829,
+      lng: -2.323147,
+    };
+
+    return isLoaded ? (
       <>
-        <p>{directions.routes[0].legs[0].distance.text}</p>
-        <div style={{display: 'flex'}}>
-          <a target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&origin=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&destination=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&waypoints=${directions.request.waypoints[0].location.location.lat()},${directions.request.waypoints[0].location.location.lng()}`}>
-            Open in GoogleMaps
-          </a>
-        </div>
+        {/* {directions && 
+          <>
+            <p>{directions.routes[0].legs[0].distance.text}</p>
+            <div style={{display: 'flex'}}>
+              <a target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&origin=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&destination=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&waypoints=${directions.request.waypoints[0].location.location.lat()},${directions.request.waypoints[0].location.location.lng()}`}>
+                Open in GoogleMaps
+              </a>
+            </div>
+          </>
+        } */}
         <GoogleMap
           mapContainerStyle={containerStyle}
-          zoom={14}
+          zoom={6}
+          center={defaultCenter}
         >
-            {directions &&
-                <DirectionsRenderer
-                directions={directions}
-                />
+          {directions &&
+              <DirectionsRenderer
+              directions={directions}
+              />
             }
         </GoogleMap>
       </>
-    ) : <><p>Generating Route...</p></>
+    ) : <> </>
 }
 
 export default MapContent
