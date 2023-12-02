@@ -1,65 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
 
+import { Link } from "react-router-dom";
+
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
-import Account from "../../media/Account";
-import HamburgerMenu from "../../media/HamburgerMenu";
-import LogoWhite from "../../media/LogoWhite";
+import Account from "../../media/icons/Account";
+import House from "../../media/icons/House";
+import LogoWhite from "../../media/icons/LogoWhite";
+import ArrowDown from "../../media/icons/ArrowDown";
+import LogoBlack from "../../media/icons/LogoBlack";
 
-function Nav(){
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [incorrectCredentials, setIncorrectCredentials] = useState(false)
-  const [showPassword, setShowPassword] = useState(false)
 
+function Nav({theme = 'light'}){
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
+  console.log(accountQuery);
 
   const logoutMutation = useMutation(() => axios.post('api/logout', null,
     {headers: {
       "X-CSRFToken": csrfToken
     }}
   ));
-
-  const handleSubmit = async (event) => { 
-    event.preventDefault();
-
-    try{
-
-      const response = await fetch('/api/login',{
-        method: 'POST',
-        headers: new Headers({
-          "X-CSRFToken": csrfToken,
-          "Content-Type": 'application/json'
-        }),
-        credentials: 'include',
-        body: JSON.stringify({
-          username: username,
-          password: password,
-        })
-      })
-
-      if(response.ok) {
-        setIncorrectCredentials(false)
-        setUsername('');
-        setPassword('');
-        accountQuery.refetch();
-      }else {
-        // Invalid credentials
-        const data = await response.json();
-        setIncorrectCredentials(true)
-        console.error('Login failed:', data.error);
-
-      }
-
-    } catch (error) {
-      console.error('Error making the POST request:', error);
-    }
-
-  }
-
 
   const logOut = async() => {
     try{
@@ -72,56 +35,40 @@ function Nav(){
   }
 
   return (
-    <div className="flex">
-      <div className="m-8">
-        <LogoWhite />
+    <div className="flex w-full">
+      <div className="mt-7 ml-7 mr-7">
+        <Link to={'/'}>
+        {theme === 'white' ? <LogoWhite /> : <LogoBlack />}
+        </Link>
       </div>
-      <div className="bg-white rounded-b-md flex h-fit items-center ml-auto mr-16 py-2">
+      <div className={`${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} rounded-b-md flex h-fit items-center ml-auto mr-16 py-2`}>
+        <Link to={'/'} className="flex items-center mx-2">
+          <House colour={`${theme === 'light' ? '#000000' : '#ffffff'}`} />
+          <p className="text-sm mx-2">Home</p>
+        </Link>
         {accountQuery.data?.authenticated &&
-          <div className="flex items-center mx-2">
-            <Account />
-            <p onClick={logOut} className="text-sm mx-2 cursor-pointer">Log Out</p>
+          <div className="flex flex-col group relative items-center mx-2">
+            <div className="flex items-center">
+              <Account />
+              <p className="text-sm mx-2">{accountQuery.data.username}</p>
+              <div>
+                <ArrowDown />
+              </div>
+            </div>
+            <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>
+              <Link to={'/account'} className="py-2 border-b-2 border-[#54E36C]">Account</Link>
+              <Link to={'/saved-runs'} className="py-2 border-b-2 border-[#54E36C]">Your runs</Link>
+              <p onClick={logOut} className="cursor-pointer py-2 border-b-2 border-[#54E36C]">Log Out</p>
+            </div>
           </div>
         }
-        <div className="flex items-center mx-2">
-          <HamburgerMenu />
-          <p className="text-sm mx-2">Menu</p>
-        </div>
+        {!accountQuery.data?.authenticated &&
+          <div className="flex items-center mx-2">
+            <Account />
+            <Link to={'/login'} className="text-sm mx-2 cursor-pointer">Log in</Link>
+          </div>
+        }
       </div>
-    {/* {accountQuery.data?.authenticated ? 
-      <>
-        <p onClick={logOut}>Log Out</p>
-      </>
-      :
-      <div style={{display: 'flex', flexDirection:'column'}}>
-        {incorrectCredentials && <p>those details are incorrect, please try again</p>}
-        <div style={{display: 'flex'}}>
-          <form onSubmit={handleSubmit}>
-          <label>Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <label>Password</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <p onClick={() => setShowPassword(!showPassword)}>{showPassword ? 'hide' : 'show'} password</p>
-          <button type="submit">Log In</button>
-          </form>
-        </div>
-      </div>
-      
-    } */}
     </div>
   )
 }

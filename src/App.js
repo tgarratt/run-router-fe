@@ -4,16 +4,22 @@ import axios from "axios";
 
 import './styles/App.css';
 
-import Nav from "./components/global/Nav";
 import { CsrfContext } from "./context/CsrfContext";
 import { AccountContext } from "./context/AccountContext";
 import Links from "./Links";
-import runRouterBg from "./media/runRouterBg.png";
 
 function App() {
-  
-  // todo...
+  // todo
 
+  // look into wtf happens when you change your password
+  // delete account modal
+  // profile icon
+
+  // saved maps page
+
+  // accept cookies to use the app
+
+  // responsive css
 
   const query = useQuery({
     queryKey: ['account'],
@@ -29,10 +35,7 @@ function App() {
     <AccountContext.Provider value={query}>
       <CsrfContext.Provider value={csrfToken}>
         {query.isSuccess &&
-          <div style={{backgroundImage: `url(${runRouterBg})`}}>
-            <Nav />
-            <Links />
-          </div>
+          <Links />
         }
       </CsrfContext.Provider>
     </AccountContext.Provider>

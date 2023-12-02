@@ -6,6 +6,7 @@
 
 body {
   margin: 0;
+  background-color: '#ffffff';
   font-family: 'Instrument Sans' ,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
