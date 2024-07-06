@@ -5,17 +5,12 @@ import { AccountContext } from "../../context/AccountContext";
 import Pencil from "../../media/icons/Pencil";
 import Tick from "../../media/icons/Tick";
 import Cross from "../../media/icons/Cross";
-import ToggleHidePassword from "../../media/icons/ToggleHidePassword";
-import ToggleShowPassword from "../../media/icons/ToggleShowPassword";
+
 
 
 function AccountSettings(){
   const [ emailDisabled, setEmailDisabled ] = useState(true);
   const [ newEmail, setNewEmail ] = useState('');
-  const [ passwordInput, setPasswordInput ] = useState(false);
-  const [password1, setPassword1] = useState('')
-  const [password2, setPassword2] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
 
 
   const csrfToken = useContext(CsrfContext);
@@ -36,31 +31,6 @@ function AccountSettings(){
         credentials: 'include',
         body: JSON.stringify({
           email: newEmail
-        })
-      })
-      .then(accountQuery.refetch())
-    } catch (error) {
-      console.error('Error making the POST request:', error);
-    }
-  }
-
-
-  // THIS PROCESS NEEDS REWORKING
-  const handleUpdatePassword = async() => {
-    if(!password1 || !password2 && password1 !== password2){
-      return
-    }
-
-    try{
-      await fetch('/api/update-account',{
-        method: 'POST',
-        headers: new Headers({
-          "X-CSRFToken": csrfToken,
-          "Content-Type": 'application/json'
-        }),
-        credentials: 'include',
-        body: JSON.stringify({
-          password: password1
         })
       })
       .then(accountQuery.refetch())
@@ -106,49 +76,6 @@ function AccountSettings(){
                 </div>
               }
             </div>
-            <p className="font-medium my-2">Password</p>
-            {passwordInput ? 
-              <>
-                <div className="relative">
-                  <input
-                      type={showPassword ? "text" : "password"}
-                      id="passwordOne"
-                      name="passwordOne"
-                      placeholder="Password"
-                      aria-label="Password Input One"
-                      value={password1}
-                      onChange={(e) => setPassword1(e.target.value)}
-                      required
-                      autoComplete="on"
-                      className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
-                  />
-                  <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                  {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                  </div>
-                </div>
-                <div className="relative row-start-3 row-span-1 col-start-2 col-span-1">
-                    <input
-                        type={showPassword ? "text" : "password"}
-                        id="passwordOne"
-                        name="passwordOne"
-                        placeholder="Password"
-                        aria-label="Password Input One"
-                        value={password2}
-                        onChange={(e) => setPassword2(e.target.value)}
-                        required
-                        autoComplete="on"
-                        className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
-                    />
-                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </div>
-                </div>
-                <p onClick={() => {handleUpdatePassword()}} className="row-start-4 row-span-1 col-start-2 col-span-1 underline font-bold pl-2">Update Password</p>
-              </>
-            :
-              <p onClick={() => {setPasswordInput(true)}} className="underline font-bold my-2">Change Password</p>
-            }
-            
         </div>
       </div>
     </div>

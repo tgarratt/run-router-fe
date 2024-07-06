@@ -109,7 +109,7 @@ const handleSubmit = async (event) => {
                             </div>
                         </div>
                         {incorrectCredentials && <p className="text-[#EE5757] text-center ">Your username or password is incorrect!</p>}
-                        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 flex items-center justify-center w-full mt-4">
+                        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 flex items-center justify-center w-full my-4">
                             <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 font-medium text-lg py-1">
                                 <p className="">Log In</p>
                             </div>
@@ -118,8 +118,11 @@ const handleSubmit = async (event) => {
                             </div>
                         </button>
                     </form>
-                    <div className="text-[#4A6BE2] text-center my-6">
+                    <div className="text-[#4A6BE2] text-center mt-3">
                         <Link to="/signup">Create an account</Link>
+                    </div>
+                    <div className="text-[#4A6BE2] text-center mt-3">
+                        <Link to="/password-reset">Forgotten Password</Link>
                     </div>
                 </div>
             </div>
