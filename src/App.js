@@ -11,6 +11,7 @@ import Links from "./Links";
 function App() {
   // todo
 
+  // add modal to confirm account delete
   // profile icon
   // edit accounts UI is a mess
 

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
-import { FormContainer } from "../components/formPages";
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/formPages";
 import {LogoWhite, TopRightArrow, ToggleHidePassword, ToggleShowPassword} from "../media/icons";
 
 
@@ -70,16 +70,10 @@ const handleSubmit = async (event) => {
 
     return (
         <FormContainer>
-            <div>
-                <LogoWhite />
-            </div>
-            <div className="w-full z-10 px-2">
-                <div className="text-white text-5xl font-medium flex justify-center mb-6 mt-28">
-                    <h1>Sign Up</h1>
-                </div>
+            <FormHeading heading={'Sign up'} />
                 <div>
                     <form onSubmit={handleSubmit} className="flex flex-col">
-                        <input
+                        <FormInput
                             type="text"
                             id="username"
                             name="username"
@@ -89,9 +83,8 @@ const handleSubmit = async (event) => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                             autoComplete="on"
-                            className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
                         />
-                        <input
+                        <FormInput
                             type="text"
                             id="email"
                             name="email"
@@ -101,10 +94,9 @@ const handleSubmit = async (event) => {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             autoComplete="on"
-                            className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
                         />
                         <div className="relative">
-                            <input
+                            <FormInput
                                 type={showPassword ? "text" : "password"}
                                 id="passwordOne"
                                 name="passwordOne"
@@ -114,24 +106,22 @@ const handleSubmit = async (event) => {
                                 onChange={(e) => setPassword1(e.target.value)}
                                 required
                                 autoComplete="on"
-                                className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                             />
                             <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
                             {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
                             </div>
                         </div>
                         <div className="relative">
-                            <input
+                            <FormInput
                                 type={showPassword ? "text" : "password"}
                                 id="passwordOne"
                                 name="passwordOne"
-                                placeholder="Password"
-                                aria-label="Password Input One"
+                                placeholder="Confirm Password"
+                                aria-label="Password Input Two"
                                 value={password2}
                                 onChange={(e) => setPassword2(e.target.value)}
                                 required
                                 autoComplete="on"
-                                className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                             />
                             <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
                             {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
@@ -154,20 +144,10 @@ const handleSubmit = async (event) => {
                                 <p>5</p>
                             </div>
                         </div>
-                        <button type="submit" disabled={password1 !== password2} onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 flex items-center justify-center w-full mt-4">
-                            <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 font-medium text-lg py-1">
-                                <p className="">Sign Up</p>
-                            </div>
-                            <div className="bg-slate-200 rounded-md ml-1">
-                                <TopRightArrow size="35" />
-                            </div>
-                        </button>
+                        <SubmitButton text={'Sign up'} />
                     </form>
-                    <div className="text-[#4A6BE2] text-center my-6">
-                        <Link to="/login">Already have an account? Log In!</Link>
-                    </div>
+                    <FormLink text={'Already have an account? Log In!'} to={'/login'} />
                 </div>
-            </div>
         </FormContainer>
 
     )
