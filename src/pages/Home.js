@@ -1,9 +1,8 @@
 import React from 'react';
-import MapContainer from '../components/home/MapContainer';
-import SignUpPush from '../components/home/SignUpPush';
-import Intro from '../components/home/Intro';
+
 import Nav from '../components/global/Nav';
 import runRouterBg from "../media/runRouterBg.png";
+import {Intro, MapContainer, SignUpPush} from '../components/home';
 
 
 

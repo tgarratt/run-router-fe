@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import { CsrfContext } from '../context/CsrfContext';
 
 import { FormContainer, FormHeading, FormInput, SubmitButton } from '../components/formPages';
+import FormMessage from '../components/formPages/FormMessage';
 
 
 function PasswordResetEmail() {
@@ -11,7 +12,9 @@ function PasswordResetEmail() {
 
     const csrfToken = useContext(CsrfContext);
 
-    const handleSubmitEmail = async() => {
+    const handleSubmitEmail = async(event) => {
+        event.preventDefault();
+
         if(!emailInput){
           return
         }
@@ -28,10 +31,11 @@ function PasswordResetEmail() {
               email: emailInput
             })
           })
-          setIsSent(true)
         } catch (error) {
           console.error('Error making the POST request:', error);
         }
+
+        setIsSent(true);
     };
 
     return (
@@ -53,7 +57,11 @@ function PasswordResetEmail() {
             />
             <SubmitButton text={'Send Reset Email'} />
           </form>
-        {isSent && <p>Sent</p>}
+        {isSent && 
+          <FormMessage
+            message={'If this email exists on our system, we will send a password reset link'}
+          />
+        }
       </FormContainer>
       </>
     )

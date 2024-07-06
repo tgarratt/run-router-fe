@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
+import { useMutation } from "react-query";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";

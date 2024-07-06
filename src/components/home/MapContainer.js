@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { useLoadScript } from '@react-google-maps/api';
 
-import RouteStartForm from "./RouteStartForm";
 import MapContent from "./MapContent"
+import RouteStartForm from "./RouteStartForm";
 
 
 function MapContainer(){

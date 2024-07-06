@@ -1,14 +1,8 @@
 import React from 'react';
 
 import Nav from '../components/global/Nav';
-import AccountSettings from '../components/account/AccountSettings';
-import CustomizeProfile from '../components/account/CustomizeProfile';
-import PersonalWelcome from '../components/account/PersonalWelcome';
-import DeleteAccount from '../components/account/DeleteAccount';
-import BgIconTwo from '../media/shapes/BgIconTwo';
-import BgIconThree from '../media/shapes/BgIconThree';
-import BgIconFour from '../media/shapes/BgIconFour';
-
+import { BgIconTwo, BgIconThree, BgIconFour } from '../media/shapes';
+import {AccountSettings, CustomizeProfile, PersonalWelcome, DeleteAccount} from '../components/account';
 
 
 function Account() {
