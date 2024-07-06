@@ -5,7 +5,7 @@ import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
-import { FormContainer, FormHeading, FormInput, SubmitButton } from "../components/formPages";
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/formPages";
 
 
 function Login() {
@@ -98,12 +98,8 @@ function Login() {
                 {incorrectCredentials && <p className="text-[#EE5757] text-center ">Your username or password is incorrect!</p>}
                 <SubmitButton text={'Login'} />
             </form>
-            <div className="text-[#4A6BE2] text-center mt-3">
-                <Link to="/signup">Create an account</Link>
-            </div>
-            <div className="text-[#4A6BE2] text-center mt-3">
-                <Link to="/password-reset">Forgotten Password</Link>
-            </div>
+            <FormLink text={'Create an account'} to={'/signup'} />
+            <FormLink text={'Forgotten Password'} to={'/password-reset'} />
         </FormContainer>
     )
 }

@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { CsrfContext } from '../context/CsrfContext';
-import { FormContainer, FormHeading, FormInput, SubmitButton } from '../components/formPages';
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from '../components/formPages';
 import { AccountContext } from '../context/AccountContext';
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
 import FormMessage from '../components/formPages/FormMessage';
@@ -51,11 +51,13 @@ function PasswordReset() {
     const csrfToken = useContext(CsrfContext);
     const accountQuery = useContext(AccountContext);
 
-    const handleUpdatePassword = async() => {
+    const handleUpdatePassword = async(event) => {
         if(!password1 || !password2 && password1 !== password2){
           return
         }
-    
+        
+        event.preventDefault(); 
+        
         try{
           await fetch('/api/password-reset-confirm',{
             method: 'POST',
@@ -124,19 +126,21 @@ function PasswordReset() {
                     {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
                     </div>
                   </div>
+                  {message ? <FormMessage message={message} /> : 
+                    <>
+                      {!password1 || password1 !== password2 ? 
+                          <SubmitButton text={'Passwords do not match'} disabled={true} />
+                      :
+                          <SubmitButton text={'Update Password'} />
+                      }
+                    </>
+                  }
                 </form>
-            {message ? <FormMessage message={message} /> : 
-            <>
-              {!password1 || password1 !== password2 ? 
-                  <SubmitButton text={'Passwords do not match'} disabled={true} />
-              :
-                  <SubmitButton text={'Update Password'} />
-              }
             </>
-            }
-            </>
-            : <p>Unauthenticated</p>}
+            : <FormMessage message={'Unauthenticated, please try again'} />}
+            <FormLink text={'Log in'} to={'/login'} />
           </FormContainer>
+
         </>
     )
 }
