@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
-import Bin from "../../media/icons/Bin";
+import { Bin } from "../../media/icons";
 
 
 function DeleteAccount(){

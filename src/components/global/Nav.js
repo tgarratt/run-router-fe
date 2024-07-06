@@ -1,16 +1,12 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { useMutation } from "react-query";
-
 import { Link } from "react-router-dom";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
-import Account from "../../media/icons/Account";
-import House from "../../media/icons/House";
-import LogoWhite from "../../media/icons/LogoWhite";
-import ArrowDown from "../../media/icons/ArrowDown";
-import LogoBlack from "../../media/icons/LogoBlack";
+
+import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/icons";
 
 
 function Nav({theme = 'light'}){

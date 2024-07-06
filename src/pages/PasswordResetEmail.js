@@ -1,5 +1,8 @@
 import React, { useState, useContext } from 'react';
+
 import { CsrfContext } from '../context/CsrfContext';
+
+import { FormContainer, FormHeading, FormInput, SubmitButton } from '../components/formPages';
 
 
 function PasswordResetEmail() {
@@ -33,23 +36,26 @@ function PasswordResetEmail() {
 
     return (
       <>
-        <div className="relative">
-        <input
-            type={"text"}
-            id="email"
-            name="email"
-            placeholder="test@test.com"
-            aria-label="Email Input"
-            value={emailInput}
-            onChange={(e) => setEmailInput(e.target.value)}
-            required
-            autoComplete="on"
-            className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
-        />
-        </div>
-        <p onClick={() => {handleSubmitEmail()}} className="row-start-4 row-span-1 col-start-2 col-span-1 underline font-bold pl-2">Email password reset form</p> 
+      <FormContainer>
+        <FormHeading heading={'Reset Password'} />
+          <form onSubmit={handleSubmitEmail} className="flex flex-col">
+            <FormInput
+                type={"text"}
+                id="email"
+                name="email"
+                placeholder="test@test.com"
+                aria-label="Email Input"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                required
+                autoComplete="on"
+                className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
+            />
+            <SubmitButton text={'Send Reset Email'} />
+          </form>
         {isSent && <p>Sent</p>}
-        </>
+      </FormContainer>
+      </>
     )
 }
 

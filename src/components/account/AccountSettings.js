@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
-import Pencil from "../../media/icons/Pencil";
-import Tick from "../../media/icons/Tick";
-import Cross from "../../media/icons/Cross";
-
+import { Pencil, Tick, Cross } from "../../media/icons";
 
 
 function AccountSettings(){

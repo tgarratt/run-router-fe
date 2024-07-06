@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import ToggleHidePassword from "../media/icons/ToggleHidePassword";
-import ToggleShowPassword from "../media/icons/ToggleShowPassword";
+import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
 import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 import { useSearchParams } from 'react-router-dom';
+import { FormContainer } from '../components/formPages';
 
 
 function PasswordReset() {
@@ -83,6 +83,7 @@ function PasswordReset() {
 
     return (
         <>
+          <FormContainer>
             {authenticated ?
               <>
                 <div className="relative">
@@ -130,6 +131,7 @@ function PasswordReset() {
             }
             </>
             : <p>Unauthenticated</p>}
+            </FormContainer>
         </>
     )
 }

@@ -1,5 +1,6 @@
 import React from "react";
-import TopRightArrow from "../../media/icons/TopRightArrow";
+
+import { TopRightArrow } from "../../media/icons";
 
 
 function SignUpPush(){

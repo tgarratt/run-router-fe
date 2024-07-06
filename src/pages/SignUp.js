@@ -4,11 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
-import LogoWhite from "../media/icons/LogoWhite";
-import TopRightArrow from "../media/icons/TopRightArrow";
-import ToggleHidePassword from "../media/icons/ToggleHidePassword";
-import ToggleShowPassword from "../media/icons/ToggleShowPassword";
-import FormContainer from "../components/formPages/FormContainer";
+import {LogoWhite, TopRightArrow, ToggleHidePassword, ToggleShowPassword} from "../media/icons";
+import { FormContainer } from "../components/formPages";
 
 
 

@@ -4,11 +4,7 @@ import { CsrfContext } from "../../context/CsrfContext";
 import * as turf from '@turf/turf';
 import axios from "axios";
 
-import RunRight from "../../media/icons/RunRight";
-import FormValid from "../../media/icons/FormValid.js";
-import FormInvalid from "../../media/icons/FormInvalid";
-import Search from "../../media/icons/Search";
-import TopRightArrow from "../../media/icons/TopRightArrow";
+import { RunRight, FormValid, FormInvalid, Search, TopRightArrow } from "../../media/icons";
 
 
 function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
