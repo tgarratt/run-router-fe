@@ -12,7 +12,6 @@ import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/ico
 function Nav({theme = 'light'}){
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
-  console.log(accountQuery);
 
   const logoutMutation = useMutation(() => axios.post('api/logout', null,
     {headers: {

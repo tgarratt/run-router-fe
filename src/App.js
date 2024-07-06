@@ -11,9 +11,8 @@ import Links from "./Links";
 function App() {
   // todo
 
-  // look into wtf happens when you change your password
-  // delete account modal
   // profile icon
+  // edit accounts UI is a mess
 
   // saved maps page
 

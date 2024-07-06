@@ -4,6 +4,7 @@ import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
 
 import { Pencil, Tick, Cross } from "../../media/icons";
+import { useNavigate } from "react-router-dom";
 
 
 function AccountSettings(){
@@ -13,8 +14,12 @@ function AccountSettings(){
 
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (accountQuery.data.authenticated !== true) {
+      navigate("/");
+      }
     setNewEmail(accountQuery.data.email);
   },[])
 
