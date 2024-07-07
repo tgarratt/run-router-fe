@@ -21,7 +21,7 @@ function AccountSettings(){
       navigate("/");
       }
     setNewEmail(accountQuery.data.email);
-  },[])
+  },[accountQuery])
 
   const handleUpdateEmail = async() => {
     try{

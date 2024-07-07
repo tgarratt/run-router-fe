@@ -16,7 +16,7 @@ function CustomizeProfile(){
 
   useEffect(() => {
     setNewNickname(accountQuery.data.username);
-  },[])
+  })
 
   const handleUpdateNickname = async() => {
     try{

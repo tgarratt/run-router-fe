@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { CsrfContext } from '../context/CsrfContext';
 import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from '../components/formPages';
 import { AccountContext } from '../context/AccountContext';
@@ -17,7 +17,8 @@ function PasswordReset() {
     const [showPassword, setShowPassword] = useState(false)
 
     const [searchParams] = useSearchParams();
-    console.log({'token': searchParams.get('t')});
+    const csrfToken = useContext(CsrfContext);
+    const accountQuery = useContext(AccountContext);
 
     const validateToken = async() => {
       try{
@@ -46,13 +47,11 @@ function PasswordReset() {
 
     useEffect(() => {
       validateToken();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
-    const csrfToken = useContext(CsrfContext);
-    const accountQuery = useContext(AccountContext);
-
     const handleUpdatePassword = async(event) => {
-        if(!password1 || !password2 && password1 !== password2){
+        if(!password1 || !password2 !== password1){
           return
         }
         

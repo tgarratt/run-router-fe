@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
 import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/formPages";
-import {LogoWhite, TopRightArrow, ToggleHidePassword, ToggleShowPassword} from "../media/icons";
+import { ToggleHidePassword, ToggleShowPassword} from "../media/icons";
 
 
 
@@ -128,19 +128,19 @@ const handleSubmit = async (event) => {
                             </div>
                         </div>
                         <div className="flex justify-between">
-                            <div onClick={() => {setChosenIcon(1)}} className={`bg-white px-2 ${chosenIcon == 1 && 'border-2 border-[#ff0000]'}`}>
+                            <div onClick={() => {setChosenIcon(1)}} className={`bg-white px-2 ${chosenIcon === 1 && 'border-2 border-[#ff0000]'}`}>
                                 <p>1</p>
                             </div>
-                            <div onClick={() => {setChosenIcon(2)}} className={`bg-white px-2 ${chosenIcon == 2 && 'border-2 border-[#ff0000]'}`}>
+                            <div onClick={() => {setChosenIcon(2)}} className={`bg-white px-2 ${chosenIcon === 2 && 'border-2 border-[#ff0000]'}`}>
                                 <p>2</p>
                             </div>
-                            <div onClick={() => {setChosenIcon(3)}} className={`bg-white px-2 ${chosenIcon == 3 && 'border-2 border-[#ff0000]'}`}>
+                            <div onClick={() => {setChosenIcon(3)}} className={`bg-white px-2 ${chosenIcon === 3 && 'border-2 border-[#ff0000]'}`}>
                                 <p>3</p>
                             </div>
-                            <div onClick={() => {setChosenIcon(4)}} className={`bg-white px-2 ${chosenIcon == 4 && 'border-2 border-[#ff0000]'}`}>
+                            <div onClick={() => {setChosenIcon(4)}} className={`bg-white px-2 ${chosenIcon === 4 && 'border-2 border-[#ff0000]'}`}>
                                 <p>4</p>
                             </div>
-                            <div onClick={() => {setChosenIcon(5)}} className={`bg-white px-2 ${chosenIcon == 5 && 'border-2 border-[#ff0000]'}`}>
+                            <div onClick={() => {setChosenIcon(5)}} className={`bg-white px-2 ${chosenIcon === 5 && 'border-2 border-[#ff0000]'}`}>
                                 <p>5</p>
                             </div>
                         </div>
