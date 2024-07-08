@@ -11,7 +11,6 @@ import Links from "./Links";
 function App() {
   // todo
 
-  // add modal to confirm account delete
   // profile icon
   // edit accounts UI is a mess
 
@@ -20,6 +19,7 @@ function App() {
   // accept cookies to use the app
 
   // responsive css
+  // tidy code
 
   const query = useQuery({
     queryKey: ['account'],

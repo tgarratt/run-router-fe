@@ -2,8 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import { CsrfContext } from '../context/CsrfContext';
 
-import { FormContainer, FormHeading, FormInput, SubmitButton } from '../components/formPages';
-import FormMessage from '../components/formPages/FormMessage';
+import { FormContainer, FormHeading, FormInput, SubmitButton, FormMessage } from '../components/forms';
 
 
 function PasswordResetEmail() {

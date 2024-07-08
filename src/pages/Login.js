@@ -5,7 +5,7 @@ import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
-import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/formPages";
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
 
 
 function Login() {

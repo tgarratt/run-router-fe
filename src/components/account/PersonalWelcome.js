@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 
-import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
 
 
 function PersonalWelcome(){
-  const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
 
   return (

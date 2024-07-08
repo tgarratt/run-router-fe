@@ -1,24 +1,59 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { CsrfContext } from '../context/CsrfContext';
+import { AccountContext } from '../context/AccountContext';
 
 import Nav from '../components/global/Nav';
-import { BgIconTwo, BgIconThree, BgIconFour } from '../media/shapes';
+import Modal from '../components/global/Modal';
+import BackgroundPattern from '../components/account/BackgroundPattern';
 import {AccountSettings, CustomizeProfile, PersonalWelcome, DeleteAccount} from '../components/account';
 
 
+
 function Account() {
+    const [deleteModal, setDeleteModal] = useState(false);
+
+    const csrfToken = useContext(CsrfContext);
+    const accountQuery = useContext(AccountContext);
+    const navigate = useNavigate()
+  
+    const handleDeleteAccount = async() => {
+      try{
+        await fetch('/api/delete-account',{
+          method: 'POST',
+          headers: new Headers({
+            "X-CSRFToken": csrfToken,
+            "Content-Type": 'application/json'
+          }),
+          credentials: 'include'
+        })
+        accountQuery.refetch();
+        navigate('/');
+      } catch (error) {
+        console.error('Error making the POST request:', error);
+      }
+    }
+
     return (
-        <div className='flex flex-col items-center w-full relative'>
-            <Nav theme='dark' />
-            <PersonalWelcome />
-            <AccountSettings />
-            <CustomizeProfile />
-            <DeleteAccount />
-            <div>
-                <div className="absolute right-[0] bottom-[5%]"><BgIconFour /></div>
-                <div className="absolute right-[25%] top-[40%]"><BgIconTwo colour='#0A1742' opacity={'1'} /></div>
-                <div className="absolute right-[20%] top-[35%]"><BgIconThree /></div>
+        <>
+            {deleteModal && 
+                <Modal 
+                    onConfirm={handleDeleteAccount}
+                    toggleModal={setDeleteModal}
+                    headingText={'Are you sure you would like to delete your account?'}
+                    confirmDetails={{text: 'DELETE', textColour: 'text-white' , bgColour: 'bg-[#ff0000]'}}
+                    cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
+            }
+            <div className='flex flex-col items-center w-full relative' onClick={() => (deleteModal ? setDeleteModal(false) : null)}>
+                <Nav theme='dark' />
+                <PersonalWelcome />
+                <AccountSettings />
+                <CustomizeProfile />
+                <DeleteAccount toggleModal={setDeleteModal} />
+                <BackgroundPattern />
             </div>
-        </div>    
+        </>  
     )
 }
 

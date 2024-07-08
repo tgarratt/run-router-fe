@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-
 import { useSearchParams } from 'react-router-dom';
+
 import { CsrfContext } from '../context/CsrfContext';
-import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from '../components/formPages';
 import { AccountContext } from '../context/AccountContext';
+
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
-import FormMessage from '../components/formPages/FormMessage';
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton, FormMessage } from '../components/forms';
 
 
 function PasswordReset() {
