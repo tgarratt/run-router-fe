@@ -114,8 +114,8 @@ const handleSubmit = async (event) => {
                         <div className="relative">
                             <FormInput
                                 type={showPassword ? "text" : "password"}
-                                id="passwordOne"
-                                name="passwordOne"
+                                id="passwordTwo"
+                                name="passwordTwo"
                                 placeholder="Confirm Password"
                                 aria-label="Password Input Two"
                                 value={password2}

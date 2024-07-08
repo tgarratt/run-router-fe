@@ -16,6 +16,8 @@ function App() {
 
   // saved maps page
 
+  // notification system 'logged out successfully' etc
+
   // accept cookies to use the app
 
   // responsive css

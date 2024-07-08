@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CsrfContext } from '../context/CsrfContext';
@@ -17,6 +17,12 @@ function Account() {
     const csrfToken = useContext(CsrfContext);
     const accountQuery = useContext(AccountContext);
     const navigate = useNavigate()
+
+    useEffect(() => {
+      if (accountQuery.data.authenticated !== true) {
+        navigate("/");
+        }
+    },[accountQuery])
   
     const handleDeleteAccount = async() => {
       try{

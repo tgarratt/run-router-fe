@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
@@ -10,13 +10,18 @@ function CustomizeProfile(){
   const [ usernameDisabled, setUsernameDisabled ] = useState(true);
   const [ newNickname, setNewNickname ] = useState('');
 
-
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
+  const inputRef = useRef();
 
   useEffect(() => {
     setNewNickname(accountQuery.data.username);
-  })
+
+    if (!usernameDisabled) {
+      inputRef.current.focus();
+    }
+
+  },[accountQuery, usernameDisabled, inputRef])
 
   const handleUpdateNickname = async() => {
     try{
@@ -37,6 +42,12 @@ function CustomizeProfile(){
     }
   }
 
+  const cancelEdit = () => {
+    setUsernameDisabled(true);
+    setNewNickname(accountQuery.data.username);
+  }
+
+
   return (
     <div className="w-4/5 lg:flex mt-2">
       <div className="w-6/12 flex flex-col justify-start">
@@ -52,27 +63,28 @@ function CustomizeProfile(){
                   name="username"
                   placeholder="username"
                   aria-label="username"
+                  ref={inputRef}
                   value={newNickname}
                   onChange={(e) => {setNewNickname(e.target.value)}}
                   disabled={usernameDisabled}
                   required
                   autoComplete="on"
-                  className="bg-slate-200 rounded-md my-2 mr-1 px-2 w-2/3"
+                  className={`bg-slate-200 rounded-md my-2 mr-1 px-2 w-2/3 ${usernameDisabled && 'text-slate-500'}`}
               />
               {usernameDisabled && 
                 <div className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {setUsernameDisabled(false)}}>
                   <Pencil />
                 </div>
               }
-              {!usernameDisabled && accountQuery.data.email !== newNickname && 
+              {!usernameDisabled && 
+              <>
+                <div className="bg-[#EE5757] rounded-md mr-2 mt-2 mb-2 p-1" onClick={cancelEdit}>
+                  <Cross />
+                </div>
                 <div className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {handleUpdateNickname()}}>
                   <Tick />
                 </div>
-              }
-              {!usernameDisabled && accountQuery.data.email === newNickname && 
-                <div className="bg-[#EE5757] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {setUsernameDisabled(true)}}>
-                  <Cross />
-                </div>
+              </>
               }
             </div>
           </div>
