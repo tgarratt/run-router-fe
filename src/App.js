@@ -11,9 +11,6 @@ import Links from "./Links";
 function App() {
   // todo
 
-  // profile icon
-  // edit accounts UI is a mess
-
   // saved maps page
 
   // notification system 'logged out successfully' etc

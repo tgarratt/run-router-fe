@@ -4,7 +4,6 @@ import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
 
 import { Pencil, Tick, Cross } from "../../media/icons";
-import { useNavigate } from "react-router-dom";
 
 
 function AccountSettings(){

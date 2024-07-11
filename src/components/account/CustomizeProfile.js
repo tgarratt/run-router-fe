@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
@@ -9,10 +11,21 @@ import { Pencil, Tick, Cross } from "../../media/icons";
 function CustomizeProfile(){
   const [ usernameDisabled, setUsernameDisabled ] = useState(true);
   const [ newNickname, setNewNickname ] = useState('');
+  const [icons, setIcons] = useState([]);
 
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
   const inputRef = useRef();
+
+  useQuery({
+    queryKey: ['icons'],
+    queryFn: () => axios.get('api/icons').then((res) => (
+        res.data
+    )),
+    onSuccess: (data) => {
+        setIcons(data.icons)
+    }
+  });
 
   useEffect(() => {
     setNewNickname(accountQuery.data.username);
@@ -47,13 +60,32 @@ function CustomizeProfile(){
     setNewNickname(accountQuery.data.username);
   }
 
+  const handleUpdateIcon = async(iconId) => {
+    try{
+      await fetch('/api/update-account',{
+        method: 'POST',
+        headers: new Headers({
+          "X-CSRFToken": csrfToken,
+          "Content-Type": 'application/json'
+        }),
+        credentials: 'include',
+        body: JSON.stringify({
+          icon: iconId
+        })
+      })
+      accountQuery.refetch()
+    } catch (error) {
+      console.error('Error making the POST request:', error);
+    }
+  }
+
 
   return (
     <div className="w-4/5 lg:flex mt-2">
       <div className="w-6/12 flex flex-col justify-start">
         <h2 className="text-[#868891] mb-2">Customize Profile</h2>
         <div className="bg-gradient-to-r from-[#4A6BE2] to-[#98CBE1] h-[2px] w-full"></div>
-        <div className="flex flex-col mt-6 mb-12">
+        <div className="flex flex-col mt-6 mb-8">
           <div className="flex flex-col mt-2 mb-4">
             <label htmlFor="username" className="mb-2 font-medium">Display Name</label>
             <div className="flex">
@@ -90,8 +122,12 @@ function CustomizeProfile(){
           </div>
           <div className="flex flex-col my-2">
             <p className="mb-2 font-medium">Profile Icon</p>
-            <div>
-              icons here
+            <div className="flex">
+                {icons.length > 0 &&
+                    icons.map((icon) => (
+                        <button className={`${accountQuery.data.icon === icon.source  ? 'border-black rounded-full' : 'border-transparent'} border-2 mr-2`} onClick={() => {handleUpdateIcon(icon.id)}}><img src={icon.source} style={{heigh: '100px', width: '50px'}} /></button>
+                    ))
+                }
             </div>
           </div>
         </div>

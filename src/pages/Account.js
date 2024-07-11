@@ -22,7 +22,7 @@ function Account() {
       if (accountQuery.data.authenticated !== true) {
         navigate("/");
         }
-    },[accountQuery])
+    },[accountQuery, navigate])
   
     const handleDeleteAccount = async() => {
       try{

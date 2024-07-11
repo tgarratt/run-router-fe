@@ -26,6 +26,7 @@ function Nav({theme = 'light'}){
     try{
       await logoutMutation.mutateAsync().then(() => {
         accountQuery.refetch();
+        setLogoutModal(false);
       });
     } catch(error){
       console.error('Logout failed:', error)
@@ -45,7 +46,7 @@ function Nav({theme = 'light'}){
       <div className="flex w-full">
         <div className="mt-7 ml-7 mr-7">
           <Link to={'/'}>
-          {theme === 'white' ? <LogoWhite /> : <LogoBlack />}
+          {theme === 'light' ? <LogoWhite /> : <LogoBlack />}
           </Link>
         </div>
         <div className={`${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} rounded-b-md flex h-fit items-center ml-auto mr-16 py-2`}>
@@ -56,7 +57,7 @@ function Nav({theme = 'light'}){
           {accountQuery.data?.authenticated &&
             <div className="flex flex-col group relative items-center mx-2">
               <div className="flex items-center">
-                <Account />
+                <img src={accountQuery.data.icon} style={{height: '35px', width: '35px'}} />
                 <p className="text-sm mx-2">{accountQuery.data.username}</p>
                 <ArrowDown />
               </div>

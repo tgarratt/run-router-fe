@@ -35,7 +35,6 @@ function PasswordReset() {
         })
         .then(response => response.json())
         .then(data => {
-          console.log({tokenData: data.isTokenValid})
           setLoading(false)
           setAuthenticated(data.isTokenValid)
         })
