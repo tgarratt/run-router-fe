@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
+import { MessageContext } from "../context/MessageContext";
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
 import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
@@ -16,6 +17,7 @@ function Login() {
 
     const csrfToken = useContext(CsrfContext);
     const accountQuery = useContext(AccountContext);
+    const { setNotification } = useContext(MessageContext);
 
     const navigate = useNavigate();
 
@@ -50,6 +52,7 @@ function Login() {
             setUsername('');
             setPassword('');
             accountQuery.refetch();
+            setNotification({text: 'you have been logged in', colour: '#00ff00'});
             }else {
             const data = await response.json();
             setIncorrectCredentials(true)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 
@@ -6,19 +6,34 @@ import './styles/App.css';
 
 import { CsrfContext } from "./context/CsrfContext";
 import { AccountContext } from "./context/AccountContext";
+import { MessageContext } from "./context/MessageContext";
+
 import Links from "./Links";
+import Message from "./components/global/Message";
+
 
 function App() {
   // todo
 
   // saved maps page
 
-  // notification system 'logged out successfully' etc
-
-  // accept cookies to use the app
-
   // responsive css
   // tidy code
+
+  const [notification, setNotification] = useState(null);
+
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+
+  const resetNotification = async () => {
+    await delay(3000);
+    setNotification(null)
+  };
+
+  useEffect(() => {
+    if(notification){
+      resetNotification();
+    }
+  },[notification, resetNotification])
 
   const query = useQuery({
     queryKey: ['account'],
@@ -33,9 +48,12 @@ function App() {
   return (
     <AccountContext.Provider value={query}>
       <CsrfContext.Provider value={csrfToken}>
-        {query.isSuccess &&
-          <Links />
-        }
+        <MessageContext.Provider value={{notification, setNotification}}>
+          {notification && <Message text={notification.text} colour={notification.colour} className="top" />}
+          {query.isSuccess &&
+            <Links />
+          }
+        </MessageContext.Provider>
       </CsrfContext.Provider>
     </AccountContext.Provider>
   );

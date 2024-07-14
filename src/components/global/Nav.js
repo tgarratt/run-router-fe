@@ -8,6 +8,7 @@ import { AccountContext } from "../../context/AccountContext";
 
 import Modal from "./Modal";
 import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/icons";
+import { MessageContext } from "../../context/MessageContext";
 
 
 function Nav({theme = 'light'}){
@@ -15,6 +16,7 @@ function Nav({theme = 'light'}){
 
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
+  const { setNotification } = useContext(MessageContext);
 
   const logoutMutation = useMutation(() => axios.post('api/logout', null,
     {headers: {
@@ -27,6 +29,7 @@ function Nav({theme = 'light'}){
       await logoutMutation.mutateAsync().then(() => {
         accountQuery.refetch();
         setLogoutModal(false);
+        setNotification({text: 'you have been logged out', colour: '#00ff00'});
       });
     } catch(error){
       console.error('Logout failed:', error)
@@ -63,7 +66,7 @@ function Nav({theme = 'light'}){
               </div>
               <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>
                 <Link to={'/account'} className="py-2 border-b-2 border-[#54E36C]">Account</Link>
-                <Link to={'/saved-runs'} className="py-2 border-b-2 border-[#54E36C]">Your runs</Link>
+                <Link to={'/saved-routes'} className="py-2 border-b-2 border-[#54E36C]">Your runs</Link>
                 <p onClick={setLogoutModal} className="cursor-pointer py-2 border-b-2 border-[#54E36C]">Log Out</p>
               </div>
             </div>
