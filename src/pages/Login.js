@@ -52,7 +52,7 @@ function Login() {
             setUsername('');
             setPassword('');
             accountQuery.refetch();
-            setNotification({text: 'you have been logged in', colour: '#00ff00'});
+            setNotification({text: 'you have been logged in', colour: 'bg-[#54E36C]'});
             }else {
             const data = await response.json();
             setIncorrectCredentials(true)

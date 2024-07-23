@@ -29,7 +29,7 @@ function Nav({theme = 'light'}){
       await logoutMutation.mutateAsync().then(() => {
         accountQuery.refetch();
         setLogoutModal(false);
-        setNotification({text: 'you have been logged out', colour: '#00ff00'});
+        setNotification({text: 'you have been logged out', colour: 'bg-[#54E36C]'});
       });
     } catch(error){
       console.error('Logout failed:', error)

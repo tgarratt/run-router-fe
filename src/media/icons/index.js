@@ -14,5 +14,9 @@ import Tick from "./Tick"
 import ToggleHidePassword from "./ToggleHidePassword"
 import ToggleShowPassword from "./ToggleShowPassword"
 import TopRightArrow from "./TopRightArrow"
+import HeartEmpty from "./HeartEmpty"
+import HeartFilled from "./HeartFilled"
+import Edit from "./Edit"
+import Delete from "./Delete"
 
-export {Account, ArrowDown, Bin, Cross, FormInvalid, FormValid, House, LogoBlack, LogoWhite, Pencil, RunRight, Search, Tick, ToggleHidePassword, ToggleShowPassword, TopRightArrow}
+export {Account, ArrowDown, Bin, Cross, FormInvalid, FormValid, House, LogoBlack, LogoWhite, Pencil, RunRight, Search, Tick, ToggleHidePassword, ToggleShowPassword, TopRightArrow, HeartEmpty, HeartFilled, Edit, Delete}
