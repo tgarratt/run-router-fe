@@ -48,8 +48,9 @@ function CustomizeProfile(){
         body: JSON.stringify({
           nickname: newNickname
         })
-      })
-        .then(accountQuery.refetch())
+      });
+      accountQuery.refetch()
+      setUsernameDisabled(true);
     } catch (error) {
       console.error('Error making the POST request:', error);
     }
@@ -104,18 +105,18 @@ function CustomizeProfile(){
                   className={`bg-slate-200 rounded-md my-2 mr-1 px-2 w-2/3 ${usernameDisabled && 'text-slate-500'}`}
               />
               {usernameDisabled && 
-                <div className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {setUsernameDisabled(false)}}>
+                <button className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {setUsernameDisabled(false)}}>
                   <Pencil />
-                </div>
+                </button>
               }
               {!usernameDisabled && 
               <>
-                <div className="bg-[#EE5757] rounded-md mr-2 mt-2 mb-2 p-1" onClick={cancelEdit}>
+                <button className="bg-[#EE5757] rounded-md mr-2 mt-2 mb-2 p-1" onClick={cancelEdit}>
                   <Cross />
-                </div>
-                <div className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {handleUpdateNickname()}}>
+                </button>
+                <button className="bg-[#54E36C] rounded-md mr-2 mt-2 mb-2 p-1" onClick={() => {handleUpdateNickname()}}>
                   <Tick />
-                </div>
+                </button>
               </>
               }
             </div>
@@ -124,8 +125,8 @@ function CustomizeProfile(){
             <p className="mb-2 font-medium">Profile Icon</p>
             <div className="flex">
                 {icons.length > 0 &&
-                    icons.map((icon) => (
-                        <button className={`${accountQuery.data.icon === icon.source  ? 'border-black rounded-full' : 'border-transparent'} border-2 mr-2`} onClick={() => {handleUpdateIcon(icon.id)}}><img src={icon.source} style={{heigh: '100px', width: '50px'}} /></button>
+                    icons.map((icon, key) => (
+                        <button key={key} className={`${accountQuery.data.icon === icon.source  ? 'border-black rounded-full' : 'border-transparent'} border-2 mr-2`} onClick={() => {handleUpdateIcon(icon.id)}}><img alt={`profile icon ${key}`} src={icon.source} style={{heigh: '100px', width: '50px'}} /></button>
                     ))
                 }
             </div>

@@ -9,9 +9,7 @@ function FormContainer({children}){
   return (
     <div className='bg-gradient-to-b from-[#0B194B] to-[#040C20] min-h-screen min-w-max relative'>
         <div className="flex flex-col min-h-screen items-center max-w-[350px] ml-auto mr-auto mb-auto pt-20">
-          <div>
-            <LogoWhite />
-          </div>
+          <LogoWhite />
           <div className="w-full z-10 px-2">
           {children}
           </div>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import { CsrfContext } from '../context/CsrfContext';
 
-import { FormContainer, FormHeading, FormInput, SubmitButton, FormMessage } from '../components/forms';
+import { FormContainer, FormHeading, FormInput, SubmitButton, FormMessage, Form } from '../components/forms';
 
 
 function PasswordResetEmail() {
@@ -41,7 +41,7 @@ function PasswordResetEmail() {
       <>
       <FormContainer>
         <FormHeading heading={'Reset Password'} />
-          <form onSubmit={handleSubmitEmail} className="flex flex-col">
+          <Form onSubmit={handleSubmitEmail}>
             <FormInput
                 type={"text"}
                 id="email"
@@ -55,7 +55,7 @@ function PasswordResetEmail() {
                 className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
             />
             <SubmitButton text={'Send Reset Email'} />
-          </form>
+          </Form>
         {isSent && 
           <FormMessage
             message={'If this email exists on our system, we will send a password reset link'}

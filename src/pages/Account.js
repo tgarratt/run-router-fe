@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 
-import Nav from '../components/global/Nav';
-import Modal from '../components/global/Modal';
-import BackgroundPattern from '../components/account/BackgroundPattern';
-import {AccountSettings, CustomizeProfile, PersonalWelcome, DeleteAccount} from '../components/account';
+import { Modal, Nav } from '../components/global';
+import {AccountSettings, CustomizeProfile, PersonalWelcome, DeleteAccount, BackgroundPattern} from '../components/account';
+
 
 
 
@@ -44,14 +43,14 @@ function Account() {
     return (
         <>
             {deleteModal && 
-                <Modal 
+                <Modal
                     onConfirm={handleDeleteAccount}
                     toggleModal={setDeleteModal}
                     headingText={'Are you sure you would like to delete your account?'}
                     confirmDetails={{text: 'DELETE', textColour: 'text-white' , bgColour: 'bg-[#ff0000]'}}
                     cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
             }
-            <div className='flex flex-col items-center w-full relative' onClick={() => (deleteModal ? setDeleteModal(false) : null)}>
+            <div className='flex flex-col items-center w-full relative'>
                 <Nav theme='dark' />
                 <PersonalWelcome />
                 <AccountSettings />

@@ -8,10 +8,10 @@ import { useLoadScript } from '@react-google-maps/api';
 import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 
-import Nav from '../components/global/Nav';
-import { Heading, RouteList } from '../components/savedRoutes';
+import { Modal, Nav } from '../components/global';
 import MapContent from '../components/home/MapContent';
-import Modal from '../components/global/Modal';
+import { Heading, RouteList } from '../components/savedRoutes';
+
 
 
 
@@ -73,10 +73,9 @@ function SavedRoutes() {
     }
 
     return (
-        <>
-          <div className='flex flex-col items-center w-full relative'>
-              <Nav theme='dark' />
-              <div className='w-full ml-12'>
+        <div className='flex flex-col items-center w-full relative'>
+            <Nav theme='dark' />
+            <div className='w-full ml-12'>
               <Heading />
               {deleteModal && deleteId &&
                 <Modal
@@ -91,17 +90,13 @@ function SavedRoutes() {
                   <div className='mr-16 mb-8 w-[30%]'>
                     <RouteList routeList={routes} handleClick={setSelectedRoute} selectedRoute={selectedRoute} refetchRoutes={query.refetch} setDeleteId={setDeleteId} setDeleteModal={setDeleteModal} />
                   </div>
-                  {console.log({result: selectedRoute})}
-                  {console.log({result: selectedRoute ? 'first' : 'second'})}
-                  {console.log({result: selectedRoute ? routes.find(item => item.id === selectedRoute).waypoint : routes[0]})}
                   <div className='w-[60%]'>
                     <MapContent waypointCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).waypoint : routes[0].waypoint} originCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).origin : routes[0].origin} isLoaded={isLoaded} />
                   </div>
                 </div>
               : <p>loading</p>}
-              </div>
-          </div>
-        </>  
+            </div>
+        </div>
     )
 }
 

@@ -15,26 +15,30 @@ import Message from "./components/global/Message";
 function App() {
   // todo
 
-  // saved maps page
-    // move delete model to RouteList... maybe
+  // map sometimes goes to center
+  // profile icon changes when not logged in
+  // model darkens background and becomes un-interactable
 
   // responsive css
   // tidy code
 
   const [notification, setNotification] = useState(null);
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
 
-  const resetNotification = async () => {
-    await delay(3000);
-    setNotification(null)
-  };
+
 
   useEffect(() => {
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    const resetNotification = async () => {
+      await delay(3000);
+      setNotification(null)
+    };
+
     if(notification){
       resetNotification();
     }
-  },[notification, resetNotification])
+  },[notification])
 
   const query = useQuery({
     queryKey: ['account'],
@@ -44,7 +48,7 @@ function App() {
     staleTime: Infinity
   });
 
-  const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+  const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   return (
     <AccountContext.Provider value={query}>

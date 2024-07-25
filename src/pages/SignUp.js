@@ -7,7 +7,7 @@ import { CsrfContext } from "../context/CsrfContext";
 import { AccountContext } from "../context/AccountContext";
 
 import { ToggleHidePassword, ToggleShowPassword} from "../media/icons";
-import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
+import { Form, FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
 
 
 
@@ -85,73 +85,71 @@ function SignUp() {
                 {query.isSuccess && 
                     <FormContainer>
                     <FormHeading heading={'Sign up'} />
-                        <div>
-                            <form onSubmit={handleSubmit} className="flex flex-col">
+                        <Form onSubmit={handleSubmit}>
+                            <FormInput
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Username"
+                                aria-label="Username Input"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                autoComplete="on"
+                            />
+                            <FormInput
+                                type="text"
+                                id="email"
+                                name="email"
+                                placeholder="E-Mail"
+                                aria-label="email Input"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                autoComplete="on"
+                            />
+                            <div className="relative">
                                 <FormInput
-                                    type="text"
-                                    id="username"
-                                    name="username"
-                                    placeholder="Username"
-                                    aria-label="Username Input"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    type={showPassword ? "text" : "password"}
+                                    id="passwordOne"
+                                    name="passwordOne"
+                                    placeholder="Password"
+                                    aria-label="Password Input One"
+                                    value={password1}
+                                    onChange={(e) => setPassword1(e.target.value)}
                                     required
                                     autoComplete="on"
                                 />
+                                <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
+                                {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
+                                </button>
+                            </div>
+                            <div className="relative">
                                 <FormInput
-                                    type="text"
-                                    id="email"
-                                    name="email"
-                                    placeholder="E-Mail"
-                                    aria-label="email Input"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    type={showPassword ? "text" : "password"}
+                                    id="passwordTwo"
+                                    name="passwordTwo"
+                                    placeholder="Confirm Password"
+                                    aria-label="Password Input Two"
+                                    value={password2}
+                                    onChange={(e) => setPassword2(e.target.value)}
                                     required
                                     autoComplete="on"
                                 />
-                                <div className="relative">
-                                    <FormInput
-                                        type={showPassword ? "text" : "password"}
-                                        id="passwordOne"
-                                        name="passwordOne"
-                                        placeholder="Password"
-                                        aria-label="Password Input One"
-                                        value={password1}
-                                        onChange={(e) => setPassword1(e.target.value)}
-                                        required
-                                        autoComplete="on"
-                                    />
-                                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                                    </div>
-                                </div>
-                                <div className="relative">
-                                    <FormInput
-                                        type={showPassword ? "text" : "password"}
-                                        id="passwordTwo"
-                                        name="passwordTwo"
-                                        placeholder="Confirm Password"
-                                        aria-label="Password Input Two"
-                                        value={password2}
-                                        onChange={(e) => setPassword2(e.target.value)}
-                                        required
-                                        autoComplete="on"
-                                    />
-                                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                                    </div>
-                                </div>
-                                <div className="flex justify-between">
-                                    {icons.length > 0 &&
-                                        icons.map((icon) => (
-                                            <button type="button" className={`${chosenIcon === icon.id ? 'border-white rounded-full' : 'border-transparent'} border-2`} onClick={() => {setChosenIcon(icon.id)}}><img src={icon.source} style={{heigh: '100px', width: '50px'}} /></button>
-                                        ))
-                                    }
-                                </div>
-                                <SubmitButton text={'Sign up'} />
-                            </form>
-                            <FormLink text={'Already have an account? Log In!'} to={'/login'} />
-                        </div>
+                                <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
+                                {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
+                                </button>
+                            </div>
+                            <div className="flex justify-between">
+                                {icons.length > 0 &&
+                                    icons.map((icon, key) => (
+                                        <button key={key} type="button" className={`${chosenIcon === icon.id ? 'border-white rounded-full' : 'border-transparent'} border-2`} onClick={() => {setChosenIcon(icon.id)}}><img alt={`profile icon ${key}`} src={icon.source} style={{heigh: '100px', width: '50px'}} /></button>
+                                    ))
+                                }
+                            </div>
+                            <SubmitButton text={'Sign up'} />
+                        </Form>
+                        <FormLink text={'Already have an account? Log In!'} to={'/login'} />
                     </FormContainer>
                 }
             </>

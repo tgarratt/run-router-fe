@@ -6,7 +6,7 @@ import { AccountContext } from "../context/AccountContext";
 import { MessageContext } from "../context/MessageContext";
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
-import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
+import { Form, FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
 
 
 function Login() {
@@ -48,16 +48,15 @@ function Login() {
             })
 
             if(response.ok) {
-            setIncorrectCredentials(false)
-            setUsername('');
-            setPassword('');
-            accountQuery.refetch();
-            setNotification({text: 'you have been logged in', colour: 'bg-[#54E36C]'});
+                setIncorrectCredentials(false)
+                setUsername('');
+                setPassword('');
+                accountQuery.refetch();
+                setNotification({text: 'you have been logged in', colour: 'bg-[#54E36C]'});
             }else {
-            const data = await response.json();
-            setIncorrectCredentials(true)
-            console.error('Login failed:', data.error);
-
+                const data = await response.json();
+                setIncorrectCredentials(true)
+                console.error('Login failed:', data.error);
             }
 
         } catch (error) {
@@ -69,7 +68,7 @@ function Login() {
     return (
         <FormContainer>
             <FormHeading heading={'Log In'} />
-            <form onSubmit={handleSubmit} className="flex flex-col">
+            <Form onSubmit={handleSubmit}>
                 <FormInput
                     type="text"
                     id="username"
@@ -94,13 +93,13 @@ function Login() {
                         required
                         autoComplete="on"
                     />
-                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
+                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
                     {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </div>
+                    </button>
                 </div>
                 {incorrectCredentials && <p className="text-[#EE5757] text-center ">Your username or password is incorrect!</p>}
                 <SubmitButton text={'Login'} />
-            </form>
+            </Form>
             <FormLink text={'Create an account'} to={'/signup'} />
             <FormLink text={'Forgotten Password'} to={'/password-reset'} />
         </FormContainer>

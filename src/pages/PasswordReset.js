@@ -5,7 +5,7 @@ import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
-import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton, FormMessage } from '../components/forms';
+import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton, FormMessage, Form } from '../components/forms';
 
 
 function PasswordReset() {
@@ -89,7 +89,7 @@ function PasswordReset() {
             {authenticated ?
               <>
                 <FormHeading heading={'Reset Password'} />
-                <form onSubmit={handleUpdatePassword} className="flex flex-col">
+                <Form onSubmit={handleUpdatePassword}>
                   <div className="relative">
                     <FormInput
                         type={showPassword ? "text" : "password"}
@@ -103,9 +103,9 @@ function PasswordReset() {
                         autoComplete="on"
                         className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                     />
-                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
+                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
                     {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </div>
+                    </button>
                   </div>
                   <div className="relative row-start-3 row-span-1 col-start-2 col-span-1">
                     <FormInput
@@ -120,9 +120,9 @@ function PasswordReset() {
                         autoComplete="on"
                         className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                     />
-                    <div onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
+                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
                     {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </div>
+                    </button>
                   </div>
                   {message ? <FormMessage message={message} /> : 
                     <>
@@ -133,7 +133,7 @@ function PasswordReset() {
                       }
                     </>
                   }
-                </form>
+                </Form>
             </>
             : <FormMessage message={'Unauthenticated, please try again'} />}
             <FormLink text={'Log in'} to={'/login'} />

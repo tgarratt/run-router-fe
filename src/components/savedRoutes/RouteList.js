@@ -3,9 +3,10 @@ import React, { useContext, useState } from "react";
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
 
-import { Delete, HeartEmpty, HeartFilled, Edit } from "../../media/icons";
-import Modal from "../global/Modal";
+import { Modal } from "../global";
 import SaveRouteForm from "./SaveRouteForm";
+import { Delete, HeartEmpty, HeartFilled, Edit } from "../../media/icons";
+
 
 
 function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDeleteId, setDeleteModal}){
@@ -88,7 +89,7 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
         <Modal
         onConfirm={() => {handleEditRoute(routeId, routeName)}}
         toggleModal={setEditRoute}
-        // valid={routeName && routeDescription.length <= 100}
+        valid={routeName && routeDescription.length <= 100}
         headingText={`Edit '${routeName}'!`}
         confirmDetails={{text: 'SAVE', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'}}
         cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}}>
@@ -98,16 +99,16 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
       <div className="text-black flex flex-col p-4 rounded-lg bg-[#EBEBEB] h-full">
         {routeList.length > 0 && routeList.map((route, key) => {
           return selectedRoute ?
-          <div className={`${selectedRoute === route.id ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
+          <div key={key} className={`${selectedRoute === route.id ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
             <div className="absolute top-4 right-2 flex">
               <button onClick={() => {toggleModal(route.id)}}>
-              {selectedRoute === route.id && <Edit stroke={'white'} /> || selectedRoute !== route.id && <Edit />}
+              {(selectedRoute === route.id && <Edit stroke={'white'} />) || (selectedRoute !== route.id && <Edit />)}
               </button>
               <button onClick={() => {handleDelete(route.id)}} className="mx-2">
                 <Delete width="20" height="20" />
               </button>
               <button onClick={() => handleFavoriteRoute(route.id, route.name, route.isFavorite)}>
-                {route.isFavorite && <HeartFilled /> || selectedRoute === route.id && <HeartEmpty stroke={'white'} /> || selectedRoute !== route.id && <HeartEmpty />}
+                {(route.isFavorite && <HeartFilled />) || (selectedRoute === route.id && <HeartEmpty stroke={'white'} />) || (selectedRoute !== route.id && <HeartEmpty />)}
               </button>
             </div>
           <button className="w-full p-4"  onClick={() => {switchSelected(route.id)}}>
@@ -119,16 +120,16 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
           </button>
           </div>
           :
-          <div className={`${key === 0 ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
+          <div key={key} className={`${key === 0 ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
             <div className="absolute top-4 right-2 flex">
               <button onClick={() => {toggleModal(route.id)}}>
-                {key === 0 && <Edit stroke={'white'} /> || selectedRoute !== route.id && <Edit />}
+                {(key === 0 && <Edit stroke={'white'} />) || (selectedRoute !== route.id && <Edit />)}
               </button>
               <button onClick={() => {handleDelete(route.id)}} className="mx-2">
                   <Delete width="20" height="20" />
               </button>
               <button onClick={() => handleFavoriteRoute(route.id, route.name, route.isFavorite)}>
-                {route.isFavorite && <HeartFilled /> || key === 0 && <HeartEmpty stroke={'white'} /> || selectedRoute !== route.id && <HeartEmpty />}
+                {(route.isFavorite && <HeartFilled />) || (key === 0 && <HeartEmpty stroke={'white'} />) || (selectedRoute !== route.id && <HeartEmpty />)}
               </button>
             </div>
           <button className="w-full p-4" onClick={() => {switchSelected(route.id)}}>

@@ -7,8 +7,9 @@ import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
 
 import Modal from "./Modal";
-import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/icons";
 import { MessageContext } from "../../context/MessageContext";
+import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/icons";
+
 
 
 function Nav({theme = 'light'}){
@@ -39,7 +40,7 @@ function Nav({theme = 'light'}){
   return (
     <>
       {logoutModal && 
-        <Modal 
+        <Modal
             onConfirm={logOut}
             toggleModal={setLogoutModal}
             headingText={'Are you sure you would like to log out?'}
@@ -60,14 +61,16 @@ function Nav({theme = 'light'}){
           {accountQuery.data?.authenticated &&
             <div className="flex flex-col group relative items-center mx-2">
               <div className="flex items-center">
-                <img src={accountQuery.data.icon} style={{height: '35px', width: '35px'}} />
+                <img alt={"profile icon"} src={accountQuery.data.icon} style={{height: '35px', width: '35px'}} />
                 <p className="text-sm mx-2">{accountQuery.data.username}</p>
                 <ArrowDown />
               </div>
               <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>
-                <Link to={'/account'} className="py-2 border-b-2 border-[#54E36C]">Account</Link>
-                <Link to={'/saved-routes'} className="py-2 border-b-2 border-[#54E36C]">Your runs</Link>
-                <p onClick={setLogoutModal} className="cursor-pointer py-2 border-b-2 border-[#54E36C]">Log Out</p>
+                <Link to={'/account'} className="py-2 border-b-2 text-center border-[#54E36C]">Account</Link>
+                <Link to={'/saved-routes'} className="py-2 border-b-2 text-center border-[#54E36C]">Your runs</Link>
+                <button onClick={setLogoutModal}>
+                  <p className="cursor-pointer py-2 border-b-2 border-[#54E36C]">Log Out</p>
+                </button>
               </div>
             </div>
           }

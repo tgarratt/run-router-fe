@@ -5,8 +5,8 @@ import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
 
+import { Modal } from "../global";
 import { LogoBlack } from "../../media/icons";
-import Modal from "../global/Modal";
 import SaveRouteForm from "../savedRoutes/SaveRouteForm";
 
 
@@ -82,6 +82,7 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
         .then(() => {
           setSaveModal(false);
           setRouteName('');
+          setRouteDescription('');
           setNotification({text: `Route has been saved`, colour: 'bg-[#54E36C]'});
         })
       } catch (error) {
