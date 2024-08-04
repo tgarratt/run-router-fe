@@ -15,8 +15,6 @@ import Message from "./components/global/Message";
 function App() {
   // todo
 
-  // map sometimes goes to center
-  // profile icon changes when not logged in
   // model darkens background and becomes un-interactable
 
   // responsive css

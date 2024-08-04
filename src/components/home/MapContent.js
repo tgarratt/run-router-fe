@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useContext } from "react"
 
-import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
-
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
 
-import { Modal } from "../global";
+import { Map, Modal } from "../global";
 import { LogoBlack } from "../../media/icons";
 import SaveRouteForm from "../savedRoutes/SaveRouteForm";
-
 
 
 function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
@@ -19,15 +16,6 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
 
     const csrfToken = useContext(CsrfContext);
     const { setNotification } = useContext(MessageContext);
-
-
-    const containerStyle = {
-      borderTopLeftRadius: '16px',
-      borderTopRightRadius: '16px',
-      width: '100%',
-      height: '700px',
-      padding: '10px'
-    };
 
     useEffect(() => {
       if (isLoaded && waypointCoordinates) {
@@ -56,11 +44,6 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
         );
       }
     }, [waypointCoordinates, isLoaded, originCoordinates]);
-
-    const defaultCenter = {
-      lat: 53.746829,
-      lng: -2.323147,
-    };
 
     const saveRoute = async() => {
       try{
@@ -123,16 +106,7 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
               </div>
             </div>
           }
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            zoom={6}
-            center={defaultCenter}
-            id="googleMap"
-          >
-            {directions &&
-              <DirectionsRenderer directions={directions} />
-            }
-          </GoogleMap>
+          <Map directions={directions} />
         </div>
       </>
     ) : <> </>
