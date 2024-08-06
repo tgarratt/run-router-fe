@@ -85,7 +85,10 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
 
   return (
     <>
+      {/* handle modal individually for more complex actions */}
       {editRoute && 
+      <>
+        <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setEditRoute(false)}}/>
         <Modal
         onConfirm={() => {handleEditRoute(routeId, routeName)}}
         toggleModal={setEditRoute}
@@ -95,6 +98,8 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
         cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}}>
           <SaveRouteForm setRouteName={setRouteName} routeName={routeName} setRouteDescription={setRouteDescription} routeDescription={routeDescription} />
         </Modal>
+      </>
+
       }
       <div className="text-black flex flex-col p-4 rounded-lg bg-[#EBEBEB] h-full">
         {routeList.length > 0 && routeList.map((route, key) => {

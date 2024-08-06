@@ -77,13 +77,17 @@ function SavedRoutes() {
             <Nav theme='dark' />
             <div className='w-full ml-12'>
               <Heading />
+              {/* handle modal individually for more complex actions */}
               {deleteModal && deleteId &&
-                <Modal
-                    onConfirm={handleDeleteRoute}
-                    toggleModal={setDeleteModal}
-                    headingText={`Are you sure you would like to delete '${routes.find(route => route.id === deleteId).name}'`}
-                    confirmDetails={{text: 'DELETE', textColour: 'text-white' , bgColour: 'bg-[#ff0000]'}}
-                    cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
+                <>
+                  <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setDeleteModal(false)}}/>
+                  <Modal
+                      onConfirm={handleDeleteRoute}
+                      toggleModal={setDeleteModal}
+                      headingText={`Are you sure you would like to delete '${routes.find(route => route.id === deleteId).name}'`}
+                      confirmDetails={{text: 'DELETE', textColour: 'text-white' , bgColour: 'bg-[#ff0000]'}}
+                      cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
+                </>
               }
               {query.isSuccess && routes.length > 0 ? 
                 <div className='flex'>

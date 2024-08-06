@@ -75,16 +75,20 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
 
     return isLoaded ? (
       <>
+        {/* handle modal individually for more complex actions */}
         {saveModal && 
-          <Modal
-            onConfirm={saveRoute}
-            toggleModal={setSaveModal}
-            valid={routeName && routeDescription.length <= 100}
-            headingText={'Name your route!'}
-            confirmDetails={{text: 'SAVE', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'}}
-            cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}}>
-              <SaveRouteForm setRouteName={setRouteName} routeName={routeName} setRouteDescription={setRouteDescription} routeDescription={routeDescription} />
-          </Modal>
+          <>
+            <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setSaveModal(false)}}/>
+            <Modal
+              onConfirm={saveRoute}
+              toggleModal={setSaveModal}
+              valid={routeName && routeDescription.length <= 100}
+              headingText={'Name your route!'}
+              confirmDetails={{text: 'SAVE', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'}}
+              cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}}>
+                <SaveRouteForm setRouteName={setRouteName} routeName={routeName} setRouteDescription={setRouteDescription} routeDescription={routeDescription} />
+            </Modal>
+          </>
         }
         <div className="w-full relative">
           {directions && 

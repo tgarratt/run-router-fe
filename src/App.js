@@ -10,20 +10,18 @@ import { MessageContext } from "./context/MessageContext";
 
 import Links from "./Links";
 import Message from "./components/global/Message";
+import ModalProvider from "./provider/ModalProvider";
 
 
 function App() {
   // todo
 
-  // model darkens background and becomes un-interactable
+  // fix height on modal background black
 
   // responsive css
   // tidy code
 
   const [notification, setNotification] = useState(null);
-
-
-
 
   useEffect(() => {
     const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -52,10 +50,12 @@ function App() {
     <AccountContext.Provider value={query}>
       <CsrfContext.Provider value={csrfToken}>
         <MessageContext.Provider value={{notification, setNotification}}>
-          {notification && <Message text={notification.text} colour={notification.colour} className="top" />}
-          {query.isSuccess &&
-            <Links />
-          }
+          <ModalProvider>
+            {notification && <Message text={notification.text} colour={notification.colour} className="top" />}
+            {query.isSuccess &&
+              <Links />
+            }
+          </ModalProvider>
         </MessageContext.Provider>
       </CsrfContext.Provider>
     </AccountContext.Provider>

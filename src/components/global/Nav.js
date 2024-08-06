@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
@@ -6,18 +6,17 @@ import { useMutation } from "react-query";
 import { CsrfContext } from "../../context/CsrfContext";
 import { AccountContext } from "../../context/AccountContext";
 
-import Modal from "./Modal";
 import { MessageContext } from "../../context/MessageContext";
 import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/icons";
+import { ModalContext } from "../../context/ModalContext";
 
 
 
 function Nav({theme = 'light'}){
-  const [logoutModal, setLogoutModal] = useState(false);
-
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);
   const { setNotification } = useContext(MessageContext);
+  const {setModal, setHeadingText, setOnConfirm, setConfirmDetails, setCancelDetails} = useContext(ModalContext);
 
   const logoutMutation = useMutation(() => axios.post('api/logout', null,
     {headers: {
@@ -29,7 +28,7 @@ function Nav({theme = 'light'}){
     try{
       await logoutMutation.mutateAsync().then(() => {
         accountQuery.refetch();
-        setLogoutModal(false);
+        setModal(false);
         setNotification({text: 'you have been logged out', colour: 'bg-[#54E36C]'});
       });
     } catch(error){
@@ -37,16 +36,16 @@ function Nav({theme = 'light'}){
     }
   }
 
+  const handleModal = () => {
+    setHeadingText('Are you sure you would like to log out?')
+    setOnConfirm(() => logOut);
+    setConfirmDetails({text: 'CONFIRM', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'})
+    setCancelDetails({text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'})
+    setModal(true);
+  }
+
   return (
     <>
-      {logoutModal && 
-        <Modal
-            onConfirm={logOut}
-            toggleModal={setLogoutModal}
-            headingText={'Are you sure you would like to log out?'}
-            confirmDetails={{text: 'CONFIRM', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'}}
-            cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
-      }
       <div className="flex w-full">
         <div className="mt-7 ml-7 mr-7">
           <Link to={'/'}>
@@ -68,7 +67,7 @@ function Nav({theme = 'light'}){
               <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>
                 <Link to={'/account'} className="py-2 border-b-2 text-center border-[#54E36C]">Account</Link>
                 <Link to={'/saved-routes'} className="py-2 border-b-2 text-center border-[#54E36C]">Your runs</Link>
-                <button onClick={setLogoutModal}>
+                <button onClick={handleModal}>
                   <p className="cursor-pointer py-2 border-b-2 border-[#54E36C]">Log Out</p>
                 </button>
               </div>
