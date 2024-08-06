@@ -1,5 +1,7 @@
 import React, { useContext, useState } from "react";
+
 import { CsrfContext } from "../../context/CsrfContext";
+import { MessageContext } from "../../context/MessageContext";
 
 import * as turf from '@turf/turf';
 import axios from "axios";
@@ -15,6 +17,7 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
   const [totalDistanceError, setTotalDistanceError] = useState(null);
 
   const csrfToken = useContext(CsrfContext);
+  const { setNotification } = useContext(MessageContext);
 
   const geocodeStartLocation = (address) => {
     const geocoder = new window.google.maps.Geocoder();
@@ -27,7 +30,11 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
           reject(status);
         }
       });
+    }).catch((error) => {
+      console.log(error);
+      setNotification({text: 'Address not found, please try again', colour: 'bg-[#EE5757]'});
     });
+  ;
   };
 
 
