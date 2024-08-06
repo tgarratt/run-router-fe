@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
 
-import { Map, Modal } from "../global";
+import { Map, Modal, ModalBackground } from "../global";
 import { LogoBlack } from "../../media/icons";
 import SaveRouteForm from "../savedRoutes/SaveRouteForm";
 
@@ -78,7 +78,7 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
         {/* handle modal individually for more complex actions */}
         {saveModal && 
           <>
-            <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setSaveModal(false)}}/>
+            <ModalBackground handleClick={setSaveModal} />
             <Modal
               onConfirm={saveRoute}
               toggleModal={setSaveModal}

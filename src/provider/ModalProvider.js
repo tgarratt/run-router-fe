@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { ModalContext } from "../context/ModalContext";
-import { Modal } from "../components/global";
+import { Modal, ModalBackground } from "../components/global";
 
 function ModalProvider ({children}){
   const [modal, setModal] = useState(false);
@@ -15,7 +15,7 @@ function ModalProvider ({children}){
         <ModalContext.Provider value={{setModal, setHeadingText, setOnConfirm, setConfirmDetails, setCancelDetails}}>
             {modal && 
               <>
-                <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 200}} onClick={() => {setModal(false)}}/>
+                <ModalBackground handleClick={setModal} />
                 <Modal
                 onConfirm={() => (onConfirm)}
                 headingText={headingtext}

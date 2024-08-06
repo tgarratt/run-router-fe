@@ -16,8 +16,6 @@ import ModalProvider from "./provider/ModalProvider";
 function App() {
   // todo
 
-  // fix height on modal background black
-
   // responsive css
   // tidy code
 

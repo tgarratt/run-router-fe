@@ -8,7 +8,7 @@ import { useLoadScript } from '@react-google-maps/api';
 import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 
-import { Modal, Nav } from '../components/global';
+import { Modal, ModalBackground, Nav } from '../components/global';
 import MapContent from '../components/home/MapContent';
 import { Heading, RouteList } from '../components/savedRoutes';
 
@@ -80,7 +80,7 @@ function SavedRoutes() {
               {/* handle modal individually for more complex actions */}
               {deleteModal && deleteId &&
                 <>
-                  <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setDeleteModal(false)}}/>
+                <ModalBackground handleClick={setDeleteModal} />
                   <Modal
                       onConfirm={handleDeleteRoute}
                       toggleModal={setDeleteModal}

@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
 
-import { Modal } from "../global";
+import { Modal, ModalBackground } from "../global";
 import SaveRouteForm from "./SaveRouteForm";
 import { Delete, HeartEmpty, HeartFilled, Edit } from "../../media/icons";
 
@@ -88,7 +88,7 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
       {/* handle modal individually for more complex actions */}
       {editRoute && 
       <>
-        <div style={{backgroundColor: 'black', opacity: '0.7', width: '100vw', height: '169vh', position: "absolute", zIndex: 300, top: 0, left: 0}} onClick={() => {setEditRoute(false)}}/>
+        <ModalBackground handleClick={setEditRoute} />
         <Modal
         onConfirm={() => {handleEditRoute(routeId, routeName)}}
         toggleModal={setEditRoute}
