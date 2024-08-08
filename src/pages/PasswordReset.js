@@ -6,6 +6,7 @@ import { AccountContext } from '../context/AccountContext';
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
 import { FormContainer, FormHeading, FormInput, FormLink, SubmitButton, FormMessage, Form } from '../components/forms';
+import { ShowPassword } from '../components/global';
 
 
 function PasswordReset() {
@@ -103,9 +104,9 @@ function PasswordReset() {
                         autoComplete="on"
                         className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                     />
-                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </button>
+                    <ShowPassword handleClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
+                    </ShowPassword>
                   </div>
                   <div className="relative row-start-3 row-span-1 col-start-2 col-span-1">
                     <FormInput
@@ -120,9 +121,9 @@ function PasswordReset() {
                         autoComplete="on"
                         className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1 w-full"
                     />
-                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </button>
+                    <ShowPassword handleClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
+                    </ShowPassword>
                   </div>
                   {message ? <FormMessage message={message} /> : 
                     <>

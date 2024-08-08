@@ -11,7 +11,6 @@ import { Account, House, LogoWhite, ArrowDown, LogoBlack } from "../../media/ico
 import { ModalContext } from "../../context/ModalContext";
 
 
-
 function Nav({theme = 'light'}){
   const csrfToken = useContext(CsrfContext);
   const accountQuery = useContext(AccountContext);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useLoadScript } from '@react-google-maps/api';
 
-import MapContent from "./MapContent"
+import { MapContent } from "../global";
 import RouteStartForm from "./RouteStartForm";
 
 

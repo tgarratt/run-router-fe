@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Nav from '../components/global/Nav';
-import {BackgroundImage, Intro, MapContainer, SignUpPush} from '../components/home';
+import {BackgroundImage, Intro, MapContainer, HomePagePush} from '../components/home';
 
 
 
@@ -11,7 +11,7 @@ function Home() {
             <div className='flex flex-col items-center w-full'>
                 <Nav />
                 <Intro />
-                <SignUpPush />
+                <HomePagePush />
                 <MapContainer />
             </div>    
         </BackgroundImage>

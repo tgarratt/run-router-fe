@@ -7,6 +7,7 @@ import { MessageContext } from "../context/MessageContext";
 
 import { ToggleHidePassword, ToggleShowPassword } from "../media/icons";
 import { Form, FormContainer, FormHeading, FormInput, FormLink, SubmitButton } from "../components/forms";
+import { ShowPassword } from "../components/global";
 
 
 function Login() {
@@ -93,9 +94,9 @@ function Login() {
                         required
                         autoComplete="on"
                     />
-                    <button onClick={() => setShowPassword(!showPassword)} className="absolute top-2 right-3">
-                    {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
-                    </button>
+                    <ShowPassword handleClick={() => setShowPassword(!showPassword)}>
+                        {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
+                    </ShowPassword>
                 </div>
                 {incorrectCredentials && <p className="text-[#EE5757] text-center ">Your username or password is incorrect!</p>}
                 <SubmitButton text={'Login'} />

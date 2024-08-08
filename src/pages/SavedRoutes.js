@@ -8,8 +8,7 @@ import { useLoadScript } from '@react-google-maps/api';
 import { CsrfContext } from '../context/CsrfContext';
 import { AccountContext } from '../context/AccountContext';
 
-import { Modal, ModalBackground, Nav } from '../components/global';
-import MapContent from '../components/home/MapContent';
+import { MapContent, Modal, ModalBackground, Nav } from '../components/global';
 import { Heading, RouteList } from '../components/savedRoutes';
 
 
@@ -17,10 +16,10 @@ import { Heading, RouteList } from '../components/savedRoutes';
 
 function SavedRoutes() {
     const [routes, setRoutes] = useState([]);
-    const [selectedRoute, setSelectedRoute] = useState();
+    const [selectedRoute, setSelectedRoute] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
-
+    console.log(routes);
 
     const csrfToken = useContext(CsrfContext);
     const accountQuery = useContext(AccountContext);
@@ -43,7 +42,9 @@ function SavedRoutes() {
           res.data
       )),
       onSuccess: (data) => {
-        setRoutes(data.allRoutes.sort((a, b) => b.isFavorite - a.isFavorite))
+        const sortedData = data.allRoutes.sort((a, b) => b.isFavorite - a.isFavorite)
+        setRoutes(sortedData)
+        setSelectedRoute(sortedData[0].id)
       }
     });
 
@@ -98,7 +99,7 @@ function SavedRoutes() {
                     <MapContent waypointCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).waypoint : routes[0].waypoint} originCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).origin : routes[0].origin} isLoaded={isLoaded} />
                   </div>
                 </div>
-              : <p>loading</p>}
+              : <p>loading...</p>}
             </div>
         </div>
     )

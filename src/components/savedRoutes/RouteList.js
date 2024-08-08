@@ -5,7 +5,8 @@ import { MessageContext } from "../../context/MessageContext";
 
 import { Modal, ModalBackground } from "../global";
 import SaveRouteForm from "./SaveRouteForm";
-import { Delete, HeartEmpty, HeartFilled, Edit } from "../../media/icons";
+import { Delete, Edit } from "../../media/icons";
+import ListHeart from "./ListHeart";
 
 
 
@@ -17,6 +18,8 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
 
   const csrfToken = useContext(CsrfContext);
   const { setNotification } = useContext(MessageContext);
+
+  console.log(selectedRoute)
 
 
   const handleFavoriteRoute = async(id, name, isFavorite) => {
@@ -99,53 +102,31 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
           <SaveRouteForm setRouteName={setRouteName} routeName={routeName} setRouteDescription={setRouteDescription} routeDescription={routeDescription} />
         </Modal>
       </>
-
       }
       <div className="text-black flex flex-col p-4 rounded-lg bg-[#EBEBEB] h-full">
-        {routeList.length > 0 && routeList.map((route, key) => {
-          return selectedRoute ?
-          <div key={key} className={`${selectedRoute === route.id ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
-            <div className="absolute top-4 right-2 flex">
-              <button onClick={() => {toggleModal(route.id)}}>
-              {(selectedRoute === route.id && <Edit stroke={'white'} />) || (selectedRoute !== route.id && <Edit />)}
-              </button>
-              <button onClick={() => {handleDelete(route.id)}} className="mx-2">
-                <Delete width="20" height="20" />
-              </button>
-              <button onClick={() => handleFavoriteRoute(route.id, route.name, route.isFavorite)}>
-                {(route.isFavorite && <HeartFilled />) || (selectedRoute === route.id && <HeartEmpty stroke={'white'} />) || (selectedRoute !== route.id && <HeartEmpty />)}
-              </button>
-            </div>
-          <button className="w-full p-4"  onClick={() => {switchSelected(route.id)}}>
-              <div className="flex">
-                <p className={`${selectedRoute === route.id ? 'text-white' : 'text-[#0A1741]'} text-xl`}>{route.name}</p>
-                <p className="ml-4 text-sm text-[#868891] self-center">{route.distance}</p>
-              </div>
-              <p className="text-[#868891] text-sm text-left mb-2 w-full break-all">{route.description}</p>
-          </button>
-          </div>
-          :
-          <div key={key} className={`${key === 0 ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
-            <div className="absolute top-4 right-2 flex">
-              <button onClick={() => {toggleModal(route.id)}}>
-                {(key === 0 && <Edit stroke={'white'} />) || (selectedRoute !== route.id && <Edit />)}
-              </button>
-              <button onClick={() => {handleDelete(route.id)}} className="mx-2">
+        {selectedRoute && routeList.map((route, key) => {
+          return (
+            <div key={key} className={`${selectedRoute === route.id ? 'bg-[#0A1741]' : 'bg-white'} rounded-lg mb-2 relative`}>
+              <div className="absolute top-4 right-2 flex">
+                <button onClick={() => {toggleModal(route.id)}}>
+                {(selectedRoute === route.id && <Edit stroke={'white'} />) || (selectedRoute !== route.id && <Edit />)}
+                </button>
+                <button onClick={() => {handleDelete(route.id)}} className="mx-2">
                   <Delete width="20" height="20" />
-              </button>
-              <button onClick={() => handleFavoriteRoute(route.id, route.name, route.isFavorite)}>
-                {(route.isFavorite && <HeartFilled />) || (key === 0 && <HeartEmpty stroke={'white'} />) || (selectedRoute !== route.id && <HeartEmpty />)}
-              </button>
-            </div>
-          <button className="w-full p-4" onClick={() => {switchSelected(route.id)}}>
-              <div className="flex">
-                <p className={`${key === 0 ? 'text-white' : 'text-[#0A1741]'} text-xl`}>{route.name}</p>
-                <p className="ml-4 text-sm text-[#868891] self-center">{route.distance}</p>
+                </button>
+                <button onClick={() => handleFavoriteRoute(route.id, route.name, route.isFavorite)}>
+                  <ListHeart isFavorite={route.isFavorite} selectedRoute={selectedRoute} currentId={route.id} />
+                </button>
               </div>
-              <p className="text-[#868891] text-sm text-left mb-2 w-full break-all">{route.description}</p>
-          </button>
-          </div>
-        })}
+            <button className="w-full p-4"  onClick={() => {switchSelected(route.id)}}>
+                <div className="flex">
+                  <p className={`${selectedRoute === route.id ? 'text-white' : 'text-[#0A1741]'} text-xl`}>{route.name}</p>
+                  <p className="ml-4 text-sm text-[#868891] self-center">{route.distance}</p>
+                </div>
+                <p className="text-[#868891] text-sm text-left mb-2 w-full break-all">{route.description}</p>
+            </button>
+            </div>
+          )})}
       </div>
     </>
   )

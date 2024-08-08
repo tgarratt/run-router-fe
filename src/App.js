@@ -17,7 +17,6 @@ function App() {
   // todo
 
   // responsive css
-  // tidy code
 
   const [notification, setNotification] = useState(null);
 
