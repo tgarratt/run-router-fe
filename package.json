@@ -2,7 +2,7 @@
   "name": "run-router-fe",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "https://run-router-django-8d8af4387754.herokuapp.com",
   "dependencies": {
     "@react-google-maps/api": "^2.19.2",
     "@testing-library/jest-dom": "^5.17.0",
