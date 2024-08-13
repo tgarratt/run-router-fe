@@ -95,15 +95,17 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
         }
         <div className="w-full relative">
           {directions && 
-            <div className="absolute z-10 right-20 mt-2 bg-white p-6 rounded-md border-2 border-[#4563CC] text-[#0A1741]">
-              <LogoBlack />
-              <div className="flex justify-between mt-4">
-                <p className="text-[#777777]">Length</p>
+            <div className="absolute z-10 top-12 left-2 sm:left-auto sm:right-2 mt-2 bg-white p-6 rounded-md border-2 border-[#4563CC] text-[#0A1741]">
+              <div className="hidden sm:block">
+                <LogoBlack />
+              </div>
+              <div className="flex sm:justify-between mt-0 sm:mt-4">
+                <p className="text-[#777777]">Length &nbsp;</p>
                 <p>{directions.routes[0].legs[0].distance.text}</p>
               </div>
               <div className="flex justify-between mt-4">
-                <a className="underline" target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&origin=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&destination=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&waypoints=${directions.request.waypoints[0].location.location.lat()},${directions.request.waypoints[0].location.location.lng()}`}>
-                  Open in GoogleMaps
+                <a className="underline flex" target="_blank" rel="noreferrer" href={`https://www.google.com/maps/dir/?api=1&travelmode=walking&dir_action=navigate&origin=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&destination=${directions.request.destination.location.lat()},${directions.request.destination.location.lng()}&waypoints=${directions.request.waypoints[0].location.location.lat()},${directions.request.waypoints[0].location.location.lng()}`}>
+                  <p className="hidden sm:block">Open in &nbsp;</p> GoogleMaps
                 </a>
               </div>
               {accountQuery.data?.authenticated &&

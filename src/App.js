@@ -14,12 +14,6 @@ import ModalProvider from "./provider/ModalProvider";
 
 
 function App() {
-  // todo
-
-  // responsive css
-    // responsive of little route popup on map
-    // responsive of nav dropdown
-
   const [notification, setNotification] = useState(null);
 
   useEffect(() => {

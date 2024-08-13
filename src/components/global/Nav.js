@@ -63,7 +63,7 @@ function Nav({theme = 'light'}){
                 <p className="text-sm mx-2 hidden md:block">{accountQuery.data.username}</p>
                 <ArrowDown />
               </div>
-              <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>
+              <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 px-2 rounded-b-md flex flex-col w-auto md:w-full left-[-16.5px] md:l-0`}>
                 <Link to={'/account'} className="py-2 border-b-2 text-center border-[#54E36C]">Account</Link>
                 <Link to={'/saved-routes'} className="py-2 border-b-2 text-center border-[#54E36C]">Your runs</Link>
                 <button onClick={handleModal}>
