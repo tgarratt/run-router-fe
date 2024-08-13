@@ -83,8 +83,9 @@ function Login() {
                     className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
                 />
                 <div className="relative">
+                    {console.log({sp: showPassword})}
                     <FormInput
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword === true ? "text" : "password"}
                         id="password"
                         name="password"
                         placeholder="Password"
@@ -94,6 +95,7 @@ function Login() {
                         required
                         autoComplete="on"
                     />
+                    {/* because is a function inside of the form?????  */}
                     <ShowPassword handleClick={() => setShowPassword(!showPassword)}>
                         {showPassword ? <ToggleHidePassword /> : <ToggleShowPassword />}
                     </ShowPassword>

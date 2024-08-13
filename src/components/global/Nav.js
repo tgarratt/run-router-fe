@@ -51,16 +51,16 @@ function Nav({theme = 'light'}){
           {theme === 'light' ? <LogoWhite /> : <LogoBlack />}
           </Link>
         </div>
-        <div className={`${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} rounded-b-md flex h-fit items-center ml-auto mr-16 py-2`}>
+        <div className={`${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} rounded-b-md flex h-fit items-center ml-auto mr-4 md:mr-16 py-2`}>
           <Link to={'/'} className="flex items-center mx-2">
             <House colour={`${theme === 'light' ? '#000000' : '#ffffff'}`} />
-            <p className="text-sm mx-2">Home</p>
+            <p className="text-sm mx-2 hidden md:block">Home</p>
           </Link>
           {accountQuery.data?.authenticated &&
             <div className="flex flex-col group relative items-center mx-2">
               <div className="flex items-center">
-                <img alt={"profile icon"} src={accountQuery.data.icon} style={{height: '35px', width: '35px'}} />
-                <p className="text-sm mx-2">{accountQuery.data.username}</p>
+                <img alt={"profile icon"} src={accountQuery.data.icon} style={{height: '35px', width: '35px'}} className="mr-2 md:mr-0" />
+                <p className="text-sm mx-2 hidden md:block">{accountQuery.data.username}</p>
                 <ArrowDown />
               </div>
               <div className={`group-hover:h-[8.5rem] h-[0rem] truncate duration-200 delay-200 absolute ${theme === 'light' ? 'bg-white text-black' : 'bg-[#0A1742] text-white'} top-8 w-full px-2 rounded-b-md flex flex-col`}>

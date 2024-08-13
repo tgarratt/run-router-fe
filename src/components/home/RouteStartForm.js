@@ -113,10 +113,10 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
 
   return (
     <div className="bg-white w-full lg:w-11/12 rounded-t-2xl pb-4 relative bottom-[-1rem] lg:pb-0 lg:static lg:bottom-0">
-      <div className="grid grid-cols-8 grid-rows-3 mt-4 mx-8 lg:mx-16">
+      <div className="mt-4 mx-8 md:grid md:grid-cols-8 md:grid-rows-3 lg:mx-16 sm:flex sm:flex-col">
         <label htmlFor="startLocation" className="row-start-1 row-end-1 col-span-3 flex items-center font-medium">Starting Location</label>
-        <div className="row-start-2 row-end-2 col-span-3 flex items-center">
-          <div className="flex w-2/3">
+        <div className="flex row-start-2 row-end-2 col-span-3 flex items-center md:mr-2">
+          <div className="flex w-full lg:w-2/3">
             <input
               type="text"
               id="startLocation"
@@ -138,7 +138,7 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
               {!startLocation && <Search />}
             </div>
           </div>
-          <div className="ml-2">
+          <div className="ml-2 lg:ml-6">
           {startLocationError === false && <FormValid />}
           {startLocationError && <FormInvalid />}
           </div>
@@ -177,7 +177,7 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
           </div>
         </div>
         {totalDistanceError && <p className="row-start-3 row-end-3 col-span-2 col-start-4 text-[#EE5757] mt-2">Field Required!</p>}
-        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 mx-4 flex items-center justify-center">
+        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 my-4 md:my-0 mx-auto sm:mx-4 flex items-center justify-center h-10">
           <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 xl:relative font-medium text-md lg:text-lg max-w-[18rem]">
             <div className="mr-2 ml-2 xl:ml-0 xl:absolute lg:left-0 xl:left-4" >
               <RunRight />

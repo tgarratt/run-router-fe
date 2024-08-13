@@ -3,9 +3,9 @@ import React from "react";
 
 function ShowPassword({children, handleClick}){
   return (
-    <button onClick={handleClick} className="absolute top-2 right-3">
+    <div onClick={handleClick} className="absolute top-2 right-3">
       {children}
-    </button>
+    </div>
   )
 }
 

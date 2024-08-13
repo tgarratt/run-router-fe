@@ -19,7 +19,6 @@ function SavedRoutes() {
     const [selectedRoute, setSelectedRoute] = useState(null);
     const [deleteId, setDeleteId] = useState(null);
     const [deleteModal, setDeleteModal] = useState(false);
-    console.log(routes);
 
     const csrfToken = useContext(CsrfContext);
     const accountQuery = useContext(AccountContext);
@@ -61,13 +60,13 @@ function SavedRoutes() {
             routeId: deleteId
           })
         })
-        setDeleteId(null);
-        await query.refetch();
-        if(deleteId === selectedRoute){
-          return setSelectedRoute(routes[0].id)
-        }
-        setDeleteModal(false);
 
+        if(deleteId === selectedRoute){
+          setSelectedRoute(routes[0].id)
+        }
+
+        setDeleteModal(false);
+        await query.refetch();
       } catch (error) {
         console.error('Error making the POST request:', error);
       }
@@ -76,7 +75,7 @@ function SavedRoutes() {
     return (
         <div className='flex flex-col items-center w-full relative'>
             <Nav theme='dark' />
-            <div className='w-full ml-12'>
+            <div className='w-full ml-0 md:ml-12'>
               <Heading />
               {/* handle modal individually for more complex actions */}
               {deleteModal && deleteId &&
@@ -91,11 +90,11 @@ function SavedRoutes() {
                 </>
               }
               {query.isSuccess && routes.length > 0 ? 
-                <div className='flex'>
-                  <div className='mr-16 mb-8 w-[30%]'>
+                <div className='flex flex-col md:flex-row'>
+                  <div className='w-[90%] md:w-[30%] mx-auto md:mr-0 xl:mr-16 mb-8'>
                     <RouteList routeList={routes} handleClick={setSelectedRoute} selectedRoute={selectedRoute} refetchRoutes={query.refetch} setDeleteId={setDeleteId} setDeleteModal={setDeleteModal} />
                   </div>
-                  <div className='w-[60%]'>
+                  <div className='w-[90%] md:w-[60%] mx-auto'>
                     <MapContent waypointCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).waypoint : routes[0].waypoint} originCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).origin : routes[0].origin} isLoaded={isLoaded} />
                   </div>
                 </div>

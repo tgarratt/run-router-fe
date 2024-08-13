@@ -4,7 +4,10 @@ import React from "react";
 function SaveRouteForm({setRouteName, routeName, setRouteDescription, routeDescription}){
   return (
     <div className="flex flex-col mx-6">
-      <label htmlFor="email" className="font-medium my-auto text-white">Route Name*</label>
+      <div className="flex justify-between my-auto text-white">
+        <label htmlFor="email" className="font-medium">Route Name*</label>
+        <p className={`text-xs ${routeName.length > 25 ? 'text-[#ff0000]' : 'text-white'}`}>{routeName.length}/25</p>
+      </div>
       <div className="flex">
         <input
             type="text"

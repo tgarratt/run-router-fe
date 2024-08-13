@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 
 import { CsrfContext } from "../../context/CsrfContext";
 import { MessageContext } from "../../context/MessageContext";
+import { AccountContext } from "../../context/AccountContext";
 
 import { Map, Modal, ModalBackground } from "../global";
 import { LogoBlack } from "../../media/icons";
@@ -16,6 +17,8 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
 
     const csrfToken = useContext(CsrfContext);
     const { setNotification } = useContext(MessageContext);
+    const accountQuery = useContext(AccountContext);
+
 
     useEffect(() => {
       if (isLoaded && waypointCoordinates) {
@@ -82,7 +85,7 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
             <Modal
               onConfirm={saveRoute}
               toggleModal={setSaveModal}
-              valid={routeName && routeDescription.length <= 100}
+              valid={routeName.length <= 25 && routeDescription.length <= 100}
               headingText={'Name your route!'}
               confirmDetails={{text: 'SAVE', textColour: 'text-black' , bgColour: 'bg-[#54E36C]'}}
               cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}}>
@@ -103,11 +106,14 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
                   Open in GoogleMaps
                 </a>
               </div>
-              <div className="flex justify-between mt-4">
-                <button className="underline" onClick={() => {setSaveModal(true)}}>
-                  Save Route
-                </button>
-              </div>
+              {accountQuery.data?.authenticated &&
+                <div className="flex justify-between mt-4">
+                  <button className="underline" onClick={() => {setSaveModal(true)}}>
+                    Save Route
+                  </button>
+                </div>
+              }
+
             </div>
           }
           <Map directions={directions} />
