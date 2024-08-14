@@ -33,8 +33,7 @@ function App() {
     queryKey: ['account'],
     queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`).then((res) => (
         res.data
-    )),
-    staleTime: Infinity
+    ))
   });
 
   function getCookie(key) {
