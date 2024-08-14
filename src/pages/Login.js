@@ -30,7 +30,15 @@ function Login() {
     }, [accountQuery, navigate]);
 
 
+    function getCookie(key) {
+        var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+        return b ? b.pop() : "";
+      }
+
+
+    console.log({loginPageCsrfGetCookie: getCookie('csrftoken')});
     console.log({loginPageCsrf: csrfToken});
+    console.log({allCookies: document.cookie});
 
     const handleSubmit = async (event) => { 
         event.preventDefault();
@@ -85,7 +93,6 @@ function Login() {
                     className="my-2 rounded-md pr-1 pl-2 pt-1 pb-1"
                 />
                 <div className="relative">
-                    {console.log({sp: showPassword})}
                     <FormInput
                         type={showPassword === true ? "text" : "password"}
                         id="password"

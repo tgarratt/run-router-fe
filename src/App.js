@@ -42,7 +42,10 @@ function App() {
     return b ? b.pop() : "";
   }
 
+  document.cookie = "username=John Doe";
+
   console.log({getCookie: getCookie('csrftoken')});
+  console.log({getCookieUsername: getCookie('username')});
 
   const csrfToken = getCookie('csrftoken');
 
