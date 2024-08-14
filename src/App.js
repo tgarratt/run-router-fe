@@ -31,7 +31,7 @@ function App() {
 
   const query = useQuery({
     queryKey: ['account'],
-    queryFn: () => axios.get(`${process.env.REACT_APP_URL}/api/account`).then((res) => (
+    queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`).then((res) => (
         res.data
     )),
     staleTime: Infinity

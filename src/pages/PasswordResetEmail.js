@@ -19,7 +19,7 @@ function PasswordResetEmail() {
         }
     
         try{
-          await fetch(`${process.env.REACT_APP_URL}/api/password-reset-email`,{
+          await fetch(`${process.env.REACT_APP_API_URL}/api/password-reset-email`,{
             method: 'POST',
             headers: new Headers({
               "X-CSRFToken": csrfToken,

@@ -23,7 +23,7 @@ function Account() {
   
     const handleDeleteAccount = async() => {
       try{
-        await fetch(`${process.env.REACT_APP_URL}/api/delete-account`,{
+        await fetch(`${process.env.REACT_APP_API_URL}/api/delete-account`,{
           method: 'POST',
           headers: new Headers({
             "X-CSRFToken": csrfToken,

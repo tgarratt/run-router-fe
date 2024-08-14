@@ -50,7 +50,7 @@ function MapContent({waypointCoordinates, originCoordinates, isLoaded}){
 
     const saveRoute = async() => {
       try{
-        await fetch(`${process.env.REACT_APP_URL}/api/save-route`,{
+        await fetch(`${process.env.REACT_APP_API_URL}/api/save-route`,{
           method: 'POST',
           headers: new Headers({
             "X-CSRFToken": csrfToken,

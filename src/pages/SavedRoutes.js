@@ -37,7 +37,7 @@ function SavedRoutes() {
 
     const query = useQuery({
       queryKey: ['savedRoutes'],
-      queryFn: () => axios.get(`${process.env.REACT_APP_URL}/api/saved-routes`).then((res) => (
+      queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/saved-routes`).then((res) => (
           res.data
       )),
       onSuccess: (data) => {
@@ -49,7 +49,7 @@ function SavedRoutes() {
 
     const handleDeleteRoute = async() => {
       try{
-        await fetch(`${process.env.REACT_APP_URL}/api/delete-route`,{
+        await fetch(`${process.env.REACT_APP_API_URL}/api/delete-route`,{
           method: 'POST',
           headers: new Headers({
             "X-CSRFToken": csrfToken,
