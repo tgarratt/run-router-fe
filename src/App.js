@@ -51,9 +51,8 @@ function App() {
     query.refetch();
   }
 
-  console.log({boolChecker: getCookie('csrftoken') === ''})
-  console.log({queryChecker: query.isSuccess})
   console.log({getCookie: getCookie('csrftoken')});
+  console.log({allCookies: document.cookie})
 
   const csrfToken = getCookie('csrftoken');
 
