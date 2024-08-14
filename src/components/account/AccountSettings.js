@@ -29,7 +29,7 @@ function AccountSettings(){
 
   const handleUpdateEmail = async() => {
     try{
-      await fetch('/api/update-account',{
+      await fetch(`${process.env.REACT_APP_URL}/api/update-account`,{
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,

@@ -21,7 +21,7 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
 
   const handleFavoriteRoute = async(id, name, isFavorite) => {
     try{
-      await fetch('/api/favorite-route',{
+      await fetch(`${process.env.REACT_APP_URL}/api/favorite-route`,{
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,
@@ -42,7 +42,7 @@ function RouteList({routeList, handleClick, selectedRoute, refetchRoutes, setDel
 
   const handleEditRoute = async(id, name) => {
     try{
-      await fetch('/api/edit-route',{
+      await fetch(`${process.env.REACT_APP_URL}/api/edit-route`,{
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,

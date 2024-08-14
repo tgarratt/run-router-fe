@@ -14,7 +14,7 @@ function EditIcon(){
 
   useQuery({
     queryKey: ['icons'],
-    queryFn: () => axios.get('api/icons').then((res) => (
+    queryFn: () => axios.get(`${process.env.REACT_APP_URL}/api/icons`).then((res) => (
         res.data
     )),
     onSuccess: (data) => {
@@ -24,7 +24,7 @@ function EditIcon(){
 
   const handleUpdateIcon = async(iconId) => {
     try{
-      await fetch('/api/update-account',{
+      await fetch(`${process.env.REACT_APP_URL}/api/update-account`,{
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,

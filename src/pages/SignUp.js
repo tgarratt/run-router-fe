@@ -29,7 +29,7 @@ function SignUp() {
 
     const query = useQuery({
         queryKey: ['icons'],
-        queryFn: () => axios.get('api/icons').then((res) => (
+        queryFn: () => axios.get(`${process.env.REACT_APP_URL}/api/icons`).then((res) => (
             res.data
         )),
         onSuccess: (data) => {
@@ -49,7 +49,7 @@ function SignUp() {
 
         try{
 
-            const response = await fetch('/api/signup',{
+            const response = await fetch(`${process.env.REACT_APP_URL}/api/signup`,{
             method: 'POST',
             headers: new Headers({
                 "X-CSRFToken": csrfToken,

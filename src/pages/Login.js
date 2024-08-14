@@ -35,7 +35,7 @@ function Login() {
 
         try{
 
-            const response = await fetch('/api/login',{
+            const response = await fetch(`${process.env.REACT_APP_URL}/api/login`,{
             method: 'POST',
             headers: new Headers({
                 "X-CSRFToken": csrfToken,

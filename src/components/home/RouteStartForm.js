@@ -85,7 +85,7 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
 
     try{
-      await fetch('/api/route-data',{
+      await fetch(`${process.env.REACT_APP_URL}/api/route-data`,{
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,

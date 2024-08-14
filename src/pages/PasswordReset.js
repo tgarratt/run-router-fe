@@ -23,7 +23,7 @@ function PasswordReset() {
 
     const validateToken = async() => {
       try{
-        await fetch('/api/validate-token',{
+        await fetch(`${process.env.REACT_APP_URL}/api/validate-token`,{
           method: 'POST',
           headers: new Headers({
             "X-CSRFToken": csrfToken,
@@ -58,7 +58,7 @@ function PasswordReset() {
         event.preventDefault(); 
         
         try{
-          await fetch('/api/password-reset-confirm',{
+          await fetch(`${process.env.REACT_APP_URL}/api/password-reset-confirm`,{
             method: 'POST',
             headers: new Headers({
               "X-CSRFToken": csrfToken,
