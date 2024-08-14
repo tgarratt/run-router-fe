@@ -42,6 +42,8 @@ function App() {
     return b ? b.pop() : "";
   }
 
+  console.log({getCookie: getCookie('csrftoken')});
+
   const csrfToken = getCookie('csrftoken');
 
   return (

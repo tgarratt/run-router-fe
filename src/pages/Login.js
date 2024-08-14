@@ -30,6 +30,8 @@ function Login() {
     }, [accountQuery, navigate]);
 
 
+    console.log({loginPageCsrf: csrfToken});
+
     const handleSubmit = async (event) => { 
         event.preventDefault();
 
