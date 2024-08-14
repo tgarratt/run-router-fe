@@ -90,7 +90,8 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
         method: 'POST',
         headers: new Headers({
           "X-CSRFToken": csrfToken,
-          "Content-Type": 'application/json'
+          "Content-Type": 'application/json',
+          "Cookie": `csrftoken=${csrfToken}`
         }),
         credentials: 'include',
         body: JSON.stringify({
