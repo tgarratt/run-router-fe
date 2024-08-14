@@ -37,7 +37,12 @@ function App() {
     staleTime: Infinity
   });
 
-  const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  function getCookie(key) {
+    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+    return b ? b.pop() : "";
+  }
+
+  const csrfToken = getCookie('csrftoken');
 
   return (
     <AccountContext.Provider value={query}>
