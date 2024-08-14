@@ -29,22 +29,31 @@ function App() {
     }
   },[notification])
 
-  const query = useQuery({
-    queryKey: ['account'],
-    queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`).then((res) => (
-        res.data
-    ))
-  });
 
   function getCookie(key) {
     var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
     return b ? b.pop() : "";
   }
 
-  document.cookie = "username=John Doe";
+  const query = useQuery({
+    queryKey: ['account'],
+    queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`).then((res) => (
+        res.data
+    )),
+    onSuccess: (data) => {
+        document.cookie = `csrftoken=${data.token}`;
+    },
+    staleTime: Infinity
+  });
 
+
+  if(getCookie('csrftoken') === ''){
+    query.refetch();
+  }
+
+  console.log({boolChecker: getCookie('csrftoken') === ''})
+  console.log({queryChecker: query.isSuccess})
   console.log({getCookie: getCookie('csrftoken')});
-  console.log({getCookieUsername: getCookie('username')});
 
   const csrfToken = getCookie('csrftoken');
 
