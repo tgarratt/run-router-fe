@@ -29,7 +29,9 @@ function SignUp() {
 
     const query = useQuery({
         queryKey: ['icons'],
-        queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/icons`).then((res) => (
+        queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/icons`, {
+            withCredentials: true,
+        }).then((res) => (
             res.data
         )),
         onSuccess: (data) => {

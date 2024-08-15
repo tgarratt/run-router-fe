@@ -30,31 +30,33 @@ function App() {
   },[notification])
 
 
-  function getCookie(key) {
-    var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
-    return b ? b.pop() : "";
-  }
+  // function getCookie(key) {
+  //   var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
+  //   return b ? b.pop() : "";
+  // }
 
   const query = useQuery({
     queryKey: ['account'],
-    queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`).then((res) => (
+    queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`,{
+      withCredentials: true,
+    }).then((res) => (
         res.data
     )),
-    onSuccess: (data) => {
-        document.cookie = `csrftoken=${data.token}`;
-    },
+    // onSuccess: (data) => {
+    //     document.cookie = `csrftoken=${data.token}`;
+    // },
     staleTime: Infinity
   });
 
 
-  if(getCookie('csrftoken') === ''){
-    query.refetch();
-  }
+  // if(getCookie('csrftoken') === ''){
+  //   query.refetch();
+  // }
 
-  console.log({getCookie: getCookie('csrftoken')});
+  console.log({getCookie: document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*=\s*([^;]*).*$)|^.*$/, '$1')});
   console.log({allCookies: document.cookie})
 
-  const csrfToken = getCookie('csrftoken');
+  const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*=\s*([^;]*).*$)|^.*$/, '$1');
 
   return (
     <AccountContext.Provider value={query}>

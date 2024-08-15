@@ -37,7 +37,9 @@ function SavedRoutes() {
 
     const query = useQuery({
       queryKey: ['savedRoutes'],
-      queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/saved-routes`).then((res) => (
+      queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/saved-routes`, {
+        withCredentials: true,
+      }).then((res) => (
           res.data
       )),
       onSuccess: (data) => {
