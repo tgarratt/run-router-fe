@@ -17,10 +17,14 @@ function Nav({theme = 'light'}){
   const { setNotification } = useContext(MessageContext);
   const {setModal, setHeadingText, setOnConfirm, setConfirmDetails, setCancelDetails} = useContext(ModalContext);
 
-  const logoutMutation = useMutation(() => axios.post('api/logout', null,
-    {headers: {
-      "X-CSRFToken": csrfToken
-    }}
+  const logoutMutation = useMutation(() => axios.post(`${process.env.REACT_APP_API_URL}/api/logout`, null,
+    {
+      headers: {
+        "X-CSRFToken": csrfToken,
+        "Content-Type": 'application/json'
+      },
+      withCredentials: true
+    }
   ));
 
   const logOut = async() => {
