@@ -29,17 +29,6 @@ function Login() {
         }
     }, [accountQuery, navigate]);
 
-
-    function getCookie(key) {
-        var b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
-        return b ? b.pop() : "";
-      }
-
-
-    console.log({loginPageCsrfGetCookie: getCookie('csrftoken')});
-    console.log({loginPageCsrf: csrfToken});
-    console.log({allCookies: document.cookie});
-
     const handleSubmit = async (event) => { 
         event.preventDefault();
 

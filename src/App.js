@@ -29,23 +29,6 @@ function App() {
     }
   },[notification])
 
-
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
   const query = useQuery({
     queryKey: ['account'],
     queryFn: () => axios.get(`${process.env.REACT_APP_API_URL}/api/account`,{
@@ -59,13 +42,6 @@ function App() {
     staleTime: Infinity
   });
 
-
-  // if(getCookie('csrftoken') === ''){
-  //   query.refetch();
-  // }
-
-  console.log({getCookieApp: getCookie('csrftoken')});
-  console.log({allCookies: document.cookie})
 
   const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)csrftoken\s*=\s*([^;]*).*$)|^.*$/, '$1');
 

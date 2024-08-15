@@ -60,8 +60,6 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
     return { lat: newLat, lng: newLng };
   };
 
-  console.log({routeStartCsrf: csrfToken});
-
   const handleSubmit = async () => { 
 
     if(!startLocation && !totalDistance){
