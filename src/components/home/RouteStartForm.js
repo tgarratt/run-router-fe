@@ -176,17 +176,19 @@ function RouteStartForm({setOriginCoordinates, setWaypointCoordinates}){
           </div>
         </div>
         {totalDistanceError && <p className="row-start-3 row-end-3 col-span-2 col-start-4 text-[#EE5757] mt-2">Field Required!</p>}
-        <button type="submit" onClick={handleSubmit} className="row-start-2 row-end-2 col-span-3 my-4 md:my-0 mx-auto sm:mx-4 flex items-center justify-center h-10">
-          <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 xl:relative font-medium text-md lg:text-lg max-w-[18rem]">
-            <div className="mr-2 ml-2 xl:ml-0 xl:absolute lg:left-0 xl:left-4" >
-              <RunRight />
+        <div className="row-start-2 row-end-2 col-span-3 my-4 md:my-0 mx-auto sm:mx-4 flex items-center justify-center">
+          <button type="submit" onClick={handleSubmit} className=" flex items-center justify-center h-10">
+            <div className="rounded-md bg-[#54E36C] w-full h-full flex items-center justify-center mr-1 xl:relative font-medium text-md lg:text-lg max-w-[18rem] xl:pl-12 pr-3 xl:pr-8">
+              <div className="mr-2 ml-2 xl:ml-0 xl:absolute lg:left-0 xl:left-4" >
+                <RunRight />
+              </div>
+              <p className="mr-2 xl:mr-0">Generate Route</p>
             </div>
-            <p className="mr-2 xl:mr-0">Generate Route</p>
-          </div>
-          <div className="bg-slate-200 rounded-md h-full ml-1 hidden xl:block">
-            <TopRightArrow />
-          </div>
-        </button>
+            <div className="bg-slate-200 rounded-md h-full ml-1 hidden xl:block">
+              <TopRightArrow />
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   )

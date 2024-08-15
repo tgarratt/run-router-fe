@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLoadScript } from '@react-google-maps/api';
 
 
@@ -43,9 +43,11 @@ function SavedRoutes() {
           res.data
       )),
       onSuccess: (data) => {
-        const sortedData = data.allRoutes.sort((a, b) => b.isFavorite - a.isFavorite)
-        setRoutes(sortedData)
-        setSelectedRoute(sortedData[0].id)
+        if(data.allRoutes.length > 0){
+          const sortedData = data.allRoutes.sort((a, b) => b.isFavorite - a.isFavorite)
+          setRoutes(sortedData)
+          setSelectedRoute(sortedData[0].id)
+        }
       }
     });
 
@@ -91,8 +93,9 @@ function SavedRoutes() {
                       cancelDetails={{text: 'CANCEL', textColour: 'text-black' , bgColour: 'bg-[#ffffff]'}} /> 
                 </>
               }
-              {query.isSuccess && routes.length > 0 ? 
+              {query.isSuccess && routes.length > 0 &&
                 <div className='flex flex-col md:flex-row'>
+                  {console.log(query)}
                   <div className='w-[90%] md:w-[30%] mx-auto md:mr-0 xl:mr-16 mb-8'>
                     <RouteList routeList={routes} handleClick={setSelectedRoute} selectedRoute={selectedRoute} refetchRoutes={query.refetch} setDeleteId={setDeleteId} setDeleteModal={setDeleteModal} />
                   </div>
@@ -100,7 +103,17 @@ function SavedRoutes() {
                     <MapContent waypointCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).waypoint : routes[0].waypoint} originCoordinates={selectedRoute ? routes.find(item => item.id === selectedRoute).origin : routes[0].origin} isLoaded={isLoaded} />
                   </div>
                 </div>
-              : <p>loading...</p>}
+              }
+              {query.isSuccess && routes.length <= 0 &&
+                <div className='flex justify-center'>
+                  <div className='text-black'>No routes found... create your own run <Link to="/" className='underline'>Here!</Link></div>
+                </div>
+              }
+              {query.isLoading &&
+                <div className='flex justify-center'>
+                  <div className='text-black'>Loading...</div>
+                </div>
+              }
             </div>
         </div>
     )
