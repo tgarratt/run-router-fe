@@ -37,7 +37,7 @@ function App() {
         res.data
     )),
     onSuccess: (data) => {
-        document.cookie = `csrftoken=${data.token}`;
+        document.cookie = `csrftoken=${data.token}; Secure; SameSite=None`;
     },
     staleTime: Infinity
   });
